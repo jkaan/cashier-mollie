@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Cashier\Order\Contracts;
+namespace Fitblocks\Cashier\Order\Contracts;
 
-use Laravel\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItem;
 
 interface InteractsWithOrderItems
 {
@@ -10,7 +10,7 @@ interface InteractsWithOrderItems
      * Called right before processing the order item into an order.
      *
      * @param OrderItem $item
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public static function preprocessOrderItem(OrderItem $item);
 

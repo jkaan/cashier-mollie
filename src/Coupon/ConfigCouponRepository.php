@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Coupon;
+namespace Fitblocks\Cashier\Coupon;
 
 use Illuminate\Config\Repository;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\Exceptions\CouponNotFoundException;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\Exceptions\CouponNotFoundException;
 
 class ConfigCouponRepository implements CouponRepository
 {
@@ -56,7 +56,7 @@ class ConfigCouponRepository implements CouponRepository
 
     /**
      * @param string $name
-     * @return \Laravel\Cashier\Coupon\Coupon
+     * @return \Fitblocks\Cashier\Coupon\Coupon
      */
     protected function buildCoupon(string $name)
     {

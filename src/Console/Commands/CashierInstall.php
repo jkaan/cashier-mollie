@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Console\Commands;
+namespace Fitblocks\Cashier\Console\Commands;
 
 use Illuminate\Console\Command;
 

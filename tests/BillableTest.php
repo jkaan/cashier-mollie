@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
-use Laravel\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
-use Laravel\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
+use Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 class BillableTest extends BaseTestCase
 {

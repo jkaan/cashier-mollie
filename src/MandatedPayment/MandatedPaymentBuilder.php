@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier\MandatedPayment;
+namespace Fitblocks\Cashier\MandatedPayment;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Cashier;
+use Fitblocks\Cashier\Cashier;
 use Mollie\Api\Types\SequenceType;
 use Money\Money;
 

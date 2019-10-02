@@ -1,21 +1,21 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Order\Contracts\MinimumPayment;
-use Laravel\Cashier\Events\BalanceTurnedStale;
-use Laravel\Cashier\Events\OrderCreated;
-use Laravel\Cashier\Events\OrderProcessed;
-use Laravel\Cashier\Order\Invoice;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderCollection;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Order\Contracts\MinimumPayment;
+use Fitblocks\Cashier\Events\BalanceTurnedStale;
+use Fitblocks\Cashier\Events\OrderCreated;
+use Fitblocks\Cashier\Events\OrderProcessed;
+use Fitblocks\Cashier\Order\Invoice;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderCollection;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 use Mollie\Api\Types\PaymentStatus;
 
 class OrderTest extends BaseTestCase

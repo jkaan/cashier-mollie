@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Database\Factories;
+namespace Fitblocks\Cashier\Database\Factories;
 
 use Faker\Generator as Faker;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [

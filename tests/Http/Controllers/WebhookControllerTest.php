@@ -1,20 +1,20 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Http\Controllers;
+namespace Fitblocks\Cashier\Tests\Http\Controllers;
 
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\OrderPaymentFailed;
-use Laravel\Cashier\Events\OrderPaymentPaid;
-use Laravel\Cashier\Events\SubscriptionCancelled;
-use Laravel\Cashier\Http\Controllers\WebhookController;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Fixtures\User;
-use Laravel\Cashier\Types\SubscriptionCancellationReason;
+use Fitblocks\Cashier\Events\OrderPaymentFailed;
+use Fitblocks\Cashier\Events\OrderPaymentPaid;
+use Fitblocks\Cashier\Events\SubscriptionCancelled;
+use Fitblocks\Cashier\Http\Controllers\WebhookController;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Types\SubscriptionCancellationReason;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 

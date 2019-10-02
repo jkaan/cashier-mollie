@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Events;
+namespace Fitblocks\Cashier\Events;
 
-use Laravel\Cashier\Subscription;
+use Fitblocks\Cashier\Subscription;
 
 class SubscriptionQuantityUpdated
 {
     /**
-     * @var \Laravel\Cashier\Subscription
+     * @var \Fitblocks\Cashier\Subscription
      */
     public $subscription;
 

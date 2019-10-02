@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Coupon;
+namespace Fitblocks\Cashier\Coupon;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Order\Contracts\InteractsWithOrderItems;
-use Laravel\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\Contracts\InteractsWithOrderItems;
+use Fitblocks\Cashier\Order\OrderItem;
 
 /**
  * @method static create(array $array)
@@ -42,7 +42,7 @@ class AppliedCoupon extends Model implements InteractsWithOrderItems
      * Called right before processing the order item into an order.
      *
      * @param OrderItem $item
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public static function preprocessOrderItem(OrderItem $item)
     {

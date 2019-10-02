@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Plan;
+namespace Fitblocks\Cashier\Tests\Plan;
 
-use Laravel\Cashier\Plan\ConfigPlanRepository;
-use Laravel\Cashier\Plan\Plan;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Order\FakeOrderItemPreprocessor;
+use Fitblocks\Cashier\Plan\ConfigPlanRepository;
+use Fitblocks\Cashier\Plan\Plan;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Order\FakeOrderItemPreprocessor;
 
 class ConfigPlanTest extends BaseTestCase
 {

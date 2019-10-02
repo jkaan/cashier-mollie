@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Events\SubscriptionQuantityUpdated;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\Events\SubscriptionQuantityUpdated;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 class ManageSubscriptionTest extends BaseTestCase
 {

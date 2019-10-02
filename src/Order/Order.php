@@ -1,22 +1,22 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Credit\Credit;
-use Laravel\Cashier\Events\BalanceTurnedStale;
-use Laravel\Cashier\Events\OrderCreated;
-use Laravel\Cashier\Events\OrderPaymentFailed;
-use Laravel\Cashier\Events\OrderPaymentPaid;
-use Laravel\Cashier\Events\OrderProcessed;
-use Laravel\Cashier\Exceptions\InvalidMandateException;
-use Laravel\Cashier\MandatedPayment\MandatedPaymentBuilder;
-use Laravel\Cashier\Order\Contracts\MinimumPayment;
-use Laravel\Cashier\Traits\HasOwner;
+use Fitblocks\Cashier\Credit\Credit;
+use Fitblocks\Cashier\Events\BalanceTurnedStale;
+use Fitblocks\Cashier\Events\OrderCreated;
+use Fitblocks\Cashier\Events\OrderPaymentFailed;
+use Fitblocks\Cashier\Events\OrderPaymentPaid;
+use Fitblocks\Cashier\Events\OrderProcessed;
+use Fitblocks\Cashier\Exceptions\InvalidMandateException;
+use Fitblocks\Cashier\MandatedPayment\MandatedPaymentBuilder;
+use Fitblocks\Cashier\Order\Contracts\MinimumPayment;
+use Fitblocks\Cashier\Traits\HasOwner;
 use LogicException;
 use Mollie\Api\Resources\Mandate;
 
@@ -52,7 +52,7 @@ class Order extends Model
     /**
      * Creates an order from a collection of OrderItems
      *
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
      * @param array $overrides
      * @param bool $process_items
      * @return Order
@@ -105,7 +105,7 @@ class Order extends Model
     /**
      * Creates a processed order from a collection of OrderItems
      *
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
      * @param array $overrides
      * @return Order
      */
@@ -127,7 +127,7 @@ class Order extends Model
     /**
      * @param $item
      * @param array $overrides
-     * @return \Laravel\Cashier\Order\Order
+     * @return \Fitblocks\Cashier\Order\Order
      */
     public static function createProcessedFromItem($item, $overrides = [])
     {
@@ -138,7 +138,7 @@ class Order extends Model
      * Processes the Order into Credit, Refund or Mollie Payment - whichever is appropriate.
      *
      * @return $this
-     * @throws \Laravel\Cashier\Exceptions\InvalidMandateException
+     * @throws \Fitblocks\Cashier\Exceptions\InvalidMandateException
      */
     public function processPayment()
     {
@@ -228,7 +228,7 @@ class Order extends Model
      *
      * @param null $id
      * @param null $date
-     * @return \Laravel\Cashier\Order\Invoice
+     * @return \Fitblocks\Cashier\Order\Invoice
      */
     public function invoice($id = null, $date = null)
     {
@@ -417,7 +417,7 @@ class Order extends Model
 
     /**
      * @param \Mollie\Api\Resources\Mandate $mandate
-     * @throws \Laravel\Cashier\Exceptions\InvalidMandateException
+     * @throws \Fitblocks\Cashier\Exceptions\InvalidMandateException
      */
     protected function guardMandate(?Mandate $mandate)
     {

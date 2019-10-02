@@ -1,5 +1,5 @@
 {
-    "name": "laravel/cashier-mollie",
+    "name": "fitblocks/cashier-mollie",
     "description": "Laravel Cashier provides an expressive, fluent interface to Mollie's subscription billing services.",
     "keywords": [
         "mollie",
@@ -51,18 +51,18 @@
             "src/Helpers/helpers.php"
         ],
         "psr-4": {
-            "Laravel\\Cashier\\": "src"
+            "Fitblocks\\Cashier\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\Cashier\\Tests\\": "tests"
+            "Fitblocks\\Cashier\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Laravel\\Cashier\\CashierServiceProvider"
+                "Fitblocks\\Cashier\\CashierServiceProvider"
             ]
         }
     },

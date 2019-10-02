@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Events;
+namespace Fitblocks\Cashier\Events;
 
-use Laravel\Cashier\Credit\Credit;
+use Fitblocks\Cashier\Credit\Credit;
 
 class BalanceTurnedStale
 {
     /**
-     * @var \Laravel\Cashier\Credit\Credit
+     * @var \Fitblocks\Cashier\Credit\Credit
      */
     public $credit;
 

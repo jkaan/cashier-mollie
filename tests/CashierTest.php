@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 class CashierTest extends BaseTestCase
 {

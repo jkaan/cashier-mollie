@@ -1,17 +1,17 @@
 <?php
 
-namespace Laravel\Cashier\Coupon;
+namespace Fitblocks\Cashier\Coupon;
 
-use Laravel\Cashier\Coupon\Contracts\AcceptsCoupons;
-use Laravel\Cashier\Coupon\Contracts\CouponHandler;
-use Laravel\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Coupon\Contracts\AcceptsCoupons;
+use Fitblocks\Cashier\Coupon\Contracts\CouponHandler;
+use Fitblocks\Cashier\Order\OrderItemCollection;
 
 class Coupon
 {
     /** @var string */
     protected $name;
 
-    /** @var \Laravel\Cashier\Coupon\Contracts\CouponHandler */
+    /** @var \Fitblocks\Cashier\Coupon\Contracts\CouponHandler */
     protected $handler;
 
     /** @var array */
@@ -24,7 +24,7 @@ class Coupon
      * Coupon constructor.
      *
      * @param string $name
-     * @param \Laravel\Cashier\Coupon\Contracts\CouponHandler $handler
+     * @param \Fitblocks\Cashier\Coupon\Contracts\CouponHandler $handler
      * @param array $context
      */
     public function __construct(string $name, CouponHandler $handler, array $context = [])
@@ -44,7 +44,7 @@ class Coupon
     }
 
     /**
-     * @return \Laravel\Cashier\Coupon\Contracts\CouponHandler
+     * @return \Fitblocks\Cashier\Coupon\Contracts\CouponHandler
      */
     public function handler()
     {
@@ -70,8 +70,8 @@ class Coupon
     }
 
     /**
-     * @param \Laravel\Cashier\Coupon\Contracts\AcceptsCoupons $model
-     * @return \Laravel\Cashier\Coupon\RedeemedCoupon
+     * @param \Fitblocks\Cashier\Coupon\Contracts\AcceptsCoupons $model
+     * @return \Fitblocks\Cashier\Coupon\RedeemedCoupon
      */
     public function redeemFor(AcceptsCoupons $model)
     {
@@ -81,8 +81,8 @@ class Coupon
     /**
      * Check if the coupon can be applied to the model
      *
-     * @param \Laravel\Cashier\Coupon\Contracts\AcceptsCoupons $model
-     * @throws \Throwable|\Laravel\Cashier\Exceptions\CouponException
+     * @param \Fitblocks\Cashier\Coupon\Contracts\AcceptsCoupons $model
+     * @throws \Throwable|\Fitblocks\Cashier\Exceptions\CouponException
      */
     public function validateFor(AcceptsCoupons $model)
     {

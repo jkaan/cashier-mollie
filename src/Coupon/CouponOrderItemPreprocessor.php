@@ -1,16 +1,16 @@
 <?php
 
-namespace Laravel\Cashier\Coupon;
+namespace Fitblocks\Cashier\Coupon;
 
-use Laravel\Cashier\Order\BaseOrderItemPreprocessor;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Order\BaseOrderItemPreprocessor;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
 
 class CouponOrderItemPreprocessor extends BaseOrderItemPreprocessor
 {
     /**
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function handle(OrderItemCollection $items)
     {

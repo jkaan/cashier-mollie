@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Laravel\Cashier\Plan\Contracts;
+namespace Fitblocks\Cashier\Plan\Contracts;
 
 interface PlanRepository
 {
     /**
      * @param string $name
-     * @return null|\Laravel\Cashier\Plan\Contracts\Plan
+     * @return null|\Fitblocks\Cashier\Plan\Contracts\Plan
      */
     public static function find(string $name);
 
     /**
      * @param string $name
-     * @return \Laravel\Cashier\Plan\Contracts\Plan
+     * @return \Fitblocks\Cashier\Plan\Contracts\Plan
      */
     public static function findOrFail(string $name);
 }

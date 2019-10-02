@@ -1,15 +1,15 @@
 <?php
 
-namespace Laravel\Cashier;
+namespace Fitblocks\Cashier;
 
-use Laravel\Cashier\Credit\Credit;
-use Laravel\Cashier\Events\MandateClearedFromBillable;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Plan\Contracts\PlanRepository;
-use Laravel\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
-use Laravel\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
-use Laravel\Cashier\Traits\PopulatesMollieCustomerFields;
+use Fitblocks\Cashier\Credit\Credit;
+use Fitblocks\Cashier\Events\MandateClearedFromBillable;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
+use Fitblocks\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
+use Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
+use Fitblocks\Cashier\Traits\PopulatesMollieCustomerFields;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;
 use Mollie\Api\Types\MandateMethod;
@@ -33,7 +33,7 @@ trait Billable
      * Get a subscription instance by name for the billable model.
      *
      * @param  string  $subscription
-     * @return \Laravel\Cashier\Subscription|null
+     * @return \Fitblocks\Cashier\Subscription|null
      */
     public function subscription($subscription = 'default')
     {
@@ -51,8 +51,8 @@ trait Billable
      *
      * @param string $subscription
      * @param string $plan
-     * @return \Laravel\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
      */
     public function newSubscription($subscription, $plan)
@@ -86,8 +86,8 @@ trait Billable
      *
      * @param $subscription
      * @param $plan
-     * @return \Laravel\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      */
     public function newSubscriptionViaMollieCheckout($subscription, $plan)
     {
@@ -100,8 +100,8 @@ trait Billable
      * @param string $mandateId
      * @param  string $subscription
      * @param  string $plan
-     * @return \Laravel\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
      */
     public function newSubscriptionForMandateId($mandateId, $subscription, $plan)
@@ -419,7 +419,7 @@ trait Billable
     }
 
     /**
-     * @return \Laravel\Cashier\Billable
+     * @return \Fitblocks\Cashier\Billable
      */
     public function clearMollieMandate()
     {

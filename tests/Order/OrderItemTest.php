@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class OrderItemTest extends BaseTestCase
 {

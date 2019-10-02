@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\FirstPaymentPaid;
-use Laravel\Cashier\Events\OrderInvoiceAvailable;
-use Laravel\Cashier\Events\OrderPaymentPaid;
+use Fitblocks\Cashier\Events\FirstPaymentPaid;
+use Fitblocks\Cashier\Events\OrderInvoiceAvailable;
+use Fitblocks\Cashier\Events\OrderPaymentPaid;
 
 class OrderInvoiceSubscriber
 {

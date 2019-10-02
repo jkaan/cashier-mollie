@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
-use Laravel\Cashier\Order\Contracts\InteractsWithOrderItems;
-use Laravel\Cashier\Order\Contracts\InvoicableItem;
-use Laravel\Cashier\Traits\FormatsAmount;
-use Laravel\Cashier\Traits\HasOwner;
+use Fitblocks\Cashier\Order\Contracts\InteractsWithOrderItems;
+use Fitblocks\Cashier\Order\Contracts\InvoicableItem;
+use Fitblocks\Cashier\Traits\FormatsAmount;
+use Fitblocks\Cashier\Traits\HasOwner;
 
 /**
  * @property InteractsWithOrderItems orderable
@@ -152,7 +152,7 @@ class OrderItem extends Model implements InvoicableItem
     }
 
     /**
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function toCollection()
     {
@@ -162,7 +162,7 @@ class OrderItem extends Model implements InvoicableItem
     /**
      * Called right before processing the item into an order.
      *
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function preprocess()
     {

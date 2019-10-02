@@ -24,7 +24,7 @@ return [
         /**
          * The model used for Order Numbers. You can extend and override it here to implement your own logic.
          */
-        'model' => \Laravel\Cashier\Order\OrderNumberGenerator::class,
+        'model' => \Fitblocks\Cashier\Order\OrderNumberGenerator::class,
 
         /**
          * The offset used by the Order Number Generator.

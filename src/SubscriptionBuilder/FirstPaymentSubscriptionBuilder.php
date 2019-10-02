@@ -1,17 +1,17 @@
 <?php
 
-namespace Laravel\Cashier\SubscriptionBuilder;
+namespace Fitblocks\Cashier\SubscriptionBuilder;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\FirstPayment\Actions\ActionCollection;
-use Laravel\Cashier\FirstPayment\Actions\AddGenericOrderItem;
-use Laravel\Cashier\FirstPayment\Actions\ApplySubscriptionCouponToPayment;
-use Laravel\Cashier\FirstPayment\Actions\StartSubscription;
-use Laravel\Cashier\FirstPayment\FirstPaymentBuilder;
-use Laravel\Cashier\Plan\Contracts\PlanRepository;
-use Laravel\Cashier\Plan\Plan;
-use Laravel\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contract;
+use Fitblocks\Cashier\FirstPayment\Actions\ActionCollection;
+use Fitblocks\Cashier\FirstPayment\Actions\AddGenericOrderItem;
+use Fitblocks\Cashier\FirstPayment\Actions\ApplySubscriptionCouponToPayment;
+use Fitblocks\Cashier\FirstPayment\Actions\StartSubscription;
+use Fitblocks\Cashier\FirstPayment\FirstPaymentBuilder;
+use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
+use Fitblocks\Cashier\Plan\Plan;
+use Fitblocks\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contract;
 
 /**
  * Creates and configures a Mollie first payment to create a new mandate via Mollie's checkout
@@ -21,12 +21,12 @@ use Laravel\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contrac
 class FirstPaymentSubscriptionBuilder implements Contract
 {
     /**
-     * @var \Laravel\Cashier\FirstPayment\FirstPaymentBuilder
+     * @var \Fitblocks\Cashier\FirstPayment\FirstPaymentBuilder
      */
     protected $firstPaymentBuilder;
 
     /**
-     * @var \Laravel\Cashier\FirstPayment\Actions\StartSubscription
+     * @var \Fitblocks\Cashier\FirstPayment\Actions\StartSubscription
      */
     protected $startSubscription;
 
@@ -75,8 +75,8 @@ class FirstPaymentSubscriptionBuilder implements Contract
     /**
      * Create a new subscription. Returns a redirect to Mollie's checkout screen.
      *
-     * @return \Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse
-     * @throws \Laravel\Cashier\Exceptions\CouponException|\Throwable
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse
+     * @throws \Fitblocks\Cashier\Exceptions\CouponException|\Throwable
      */
     public function create()
     {
@@ -111,7 +111,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
      *
      * @param  int $trialDays
      * @return $this
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
      */
     public function trialDays(int $trialDays)
@@ -124,7 +124,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
      *
      * @param  Carbon $trialUntil
      * @return $this
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
      */
     public function trialUntil(Carbon $trialUntil)
@@ -155,7 +155,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
      *
      * @param string $coupon
      * @return $this
-     * @throws \Laravel\Cashier\Exceptions\CouponNotFoundException
+     * @throws \Fitblocks\Cashier\Exceptions\CouponNotFoundException
      */
     public function withCoupon(string $coupon)
     {
@@ -178,7 +178,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     }
 
     /**
-     * @return \Laravel\Cashier\FirstPayment\FirstPaymentBuilder
+     * @return \Fitblocks\Cashier\FirstPayment\FirstPaymentBuilder
      */
     public function getMandatePaymentBuilder()
     {
@@ -186,7 +186,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     }
 
     /**
-     * @return \Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse
      */
     protected function redirectToCheckout()
     {
@@ -194,7 +194,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     }
 
     /**
-     * @throws \Laravel\Cashier\Exceptions\CouponException|\Throwable
+     * @throws \Fitblocks\Cashier\Exceptions\CouponException|\Throwable
      */
     protected function validateCoupon()
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\FirstPayment;
+namespace Fitblocks\Cashier\FirstPayment;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\FirstPayment\Actions\ActionCollection;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\FirstPayment\Actions\ActionCollection;
 use Mollie\Api\Types\SequenceType;
 
 class FirstPaymentBuilder

@@ -1,18 +1,18 @@
 <?php
 
-namespace Laravel\Cashier\Tests\SubscriptionBuilder;
+namespace Fitblocks\Cashier\Tests\SubscriptionBuilder;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Events\FirstPaymentPaid;
-use Laravel\Cashier\Events\OrderProcessed;
-use Laravel\Cashier\Exceptions\CouponException;
-use Laravel\Cashier\FirstPayment\Actions\AddGenericOrderItem;
-use Laravel\Cashier\FirstPayment\Actions\StartSubscription;
-use Laravel\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
-use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\Events\FirstPaymentPaid;
+use Fitblocks\Cashier\Events\OrderProcessed;
+use Fitblocks\Cashier\Exceptions\CouponException;
+use Fitblocks\Cashier\FirstPayment\Actions\AddGenericOrderItem;
+use Fitblocks\Cashier\FirstPayment\Actions\StartSubscription;
+use Fitblocks\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder;
+use Fitblocks\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 use Mollie\Api\Resources\Payment;
 
 class FirstPaymentSubscriptionBuilderTest extends BaseTestCase
@@ -176,7 +176,7 @@ class FirstPaymentSubscriptionBuilderTest extends BaseTestCase
     }
 
     /**
-     * @return \Laravel\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\FirstPaymentSubscriptionBuilder
      */
     protected function getBuilder()
     {

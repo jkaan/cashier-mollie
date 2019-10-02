@@ -1,17 +1,17 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
-use Laravel\Cashier\Coupon\Contracts\CouponHandler;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\Coupon\Coupon;
-use Laravel\Cashier\Coupon\FixedDiscountHandler;
-use Laravel\Cashier\Tests\Database\Migrations\CreateUsersTable;
-use Laravel\Cashier\Tests\FirstPayment\Actions\StartSubscriptionTest;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Coupon\Contracts\CouponHandler;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\Coupon\Coupon;
+use Fitblocks\Cashier\Coupon\FixedDiscountHandler;
+use Fitblocks\Cashier\Tests\Database\Migrations\CreateUsersTable;
+use Fitblocks\Cashier\Tests\FirstPayment\Actions\StartSubscriptionTest;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 use Mockery;
 use Mollie\Api\MollieApiClient;
 use Money\Money;
@@ -39,7 +39,7 @@ abstract class BaseTestCase extends TestCase
      */
     protected function getPackageProviders($app)
     {
-        return ['Laravel\Cashier\CashierServiceProvider'];
+        return ['Fitblocks\Cashier\CashierServiceProvider'];
     }
 
     /**
@@ -135,7 +135,7 @@ abstract class BaseTestCase extends TestCase
      */
     protected function withFixtureModels()
     {
-        config(['cashier.billable_model' => 'Laravel\Cashier\Tests\Fixtures\User']);
+        config(['cashier.billable_model' => 'Fitblocks\Cashier\Tests\Fixtures\User']);
 
         return $this;
     }
@@ -303,7 +303,7 @@ abstract class BaseTestCase extends TestCase
     }
 
     /**
-     * @param \Laravel\Cashier\Coupon\Coupon $coupon
+     * @param \Fitblocks\Cashier\Coupon\Coupon $coupon
      * @param null $couponHandler
      * @param null $context
      * @return CouponRepository The mocked coupon repository

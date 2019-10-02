@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier\Database\Factories;
+namespace Fitblocks\Cashier\Database\Factories;
 
 use Faker\Generator as Faker;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [

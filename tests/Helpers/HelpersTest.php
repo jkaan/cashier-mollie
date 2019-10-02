@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Helpers;
+namespace Fitblocks\Cashier\Tests\Helpers;
 
 use Money\Money;
 use PHPUnit\Framework\TestCase;

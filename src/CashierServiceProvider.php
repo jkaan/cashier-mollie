@@ -1,15 +1,15 @@
 <?php
 
-namespace Laravel\Cashier;
+namespace Fitblocks\Cashier;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\Cashier\Console\Commands\CashierInstall;
-use Laravel\Cashier\Console\Commands\CashierRun;
-use Laravel\Cashier\Order\Contracts\MinimumPayment as MinimumPaymentContract;
-use Laravel\Cashier\Coupon\ConfigCouponRepository;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\Plan\ConfigPlanRepository;
-use Laravel\Cashier\Plan\Contracts\PlanRepository;
+use Fitblocks\Cashier\Console\Commands\CashierInstall;
+use Fitblocks\Cashier\Console\Commands\CashierRun;
+use Fitblocks\Cashier\Order\Contracts\MinimumPayment as MinimumPaymentContract;
+use Fitblocks\Cashier\Coupon\ConfigCouponRepository;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\Plan\ConfigPlanRepository;
+use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
 use Mollie\Laravel\MollieServiceProvider;
 
 class CashierServiceProvider extends ServiceProvider

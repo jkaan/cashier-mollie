@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier;
+namespace Fitblocks\Cashier;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderItem;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;

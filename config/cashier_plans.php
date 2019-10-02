@@ -1,7 +1,7 @@
 <?php
 
-use Laravel\Cashier\Coupon\CouponOrderItemPreprocessor as ProcessCoupons;
-use Laravel\Cashier\Order\PersistOrderItemsPreprocessor as PersistOrderItems;
+use Fitblocks\Cashier\Coupon\CouponOrderItemPreprocessor as ProcessCoupons;
+use Fitblocks\Cashier\Order\PersistOrderItemsPreprocessor as PersistOrderItems;
 
 return [
 

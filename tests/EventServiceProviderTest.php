@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\OrderInvoiceAvailable;
-use Laravel\Cashier\Events\OrderPaymentPaid;
-use Laravel\Cashier\Order\Order;
+use Fitblocks\Cashier\Events\OrderInvoiceAvailable;
+use Fitblocks\Cashier\Events\OrderPaymentPaid;
+use Fitblocks\Cashier\Order\Order;
 
 class EventServiceProviderTest extends BaseTestCase
 {

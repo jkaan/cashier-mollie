@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Http\Controllers;
+namespace Fitblocks\Cashier\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\FirstPaymentFailed;
-use Laravel\Cashier\Events\FirstPaymentPaid;
-use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
+use Fitblocks\Cashier\Events\FirstPaymentFailed;
+use Fitblocks\Cashier\Events\FirstPaymentPaid;
+use Fitblocks\Cashier\FirstPayment\FirstPaymentHandler;
 use Symfony\Component\HttpFoundation\Response;
 
 class FirstPaymentWebhookController extends BaseWebhookController

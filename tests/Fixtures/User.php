@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Fixtures;
+namespace Fitblocks\Cashier\Tests\Fixtures;
 
-use Laravel\Cashier\Billable;
+use Fitblocks\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Order\Contracts\ProvidesInvoiceInformation;
+use Fitblocks\Cashier\Order\Contracts\ProvidesInvoiceInformation;
 
 class User extends Model implements ProvidesInvoiceInformation
 {

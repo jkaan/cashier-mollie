@@ -1,5 +1,5 @@
 <?php
-namespace Laravel\Cashier\Tests\Database\Migrations;
+namespace Fitblocks\Cashier\Tests\Database\Migrations;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

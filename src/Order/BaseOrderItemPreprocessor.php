@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 abstract class BaseOrderItemPreprocessor
 {
     /**
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     abstract public function handle(OrderItemCollection $items);
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Cashier\Credit;
+namespace Fitblocks\Cashier\Credit;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Laravel\Cashier\Traits\HasOwner;
+use Fitblocks\Cashier\Traits\HasOwner;
 use Money\Money;
 
 class Credit extends Model
@@ -18,7 +18,7 @@ class Credit extends Model
      *
      * @param Model $owner
      * @param \Money\Money $amount
-     * @return Model|\Laravel\Cashier\Credit\Credit
+     * @return Model|\Fitblocks\Cashier\Credit\Credit
      */
     public static function addAmountForOwner(Model $owner, Money $amount)
     {

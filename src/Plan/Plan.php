@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Laravel\Cashier\Plan;
+namespace Fitblocks\Cashier\Plan;
 
-use Laravel\Cashier\Order\OrderItemPreprocessorCollection;
-use Laravel\Cashier\Plan\Contracts\Plan as PlanContract;
+use Fitblocks\Cashier\Order\OrderItemPreprocessorCollection;
+use Fitblocks\Cashier\Plan\Contracts\Plan as PlanContract;
 use Money\Money;
 
 class Plan implements PlanContract
@@ -75,7 +75,7 @@ class Plan implements PlanContract
      */
     protected $firstPaymentWebhookUrl;
 
-    /** @var \Laravel\Cashier\Order\OrderItemPreprocessorCollection */
+    /** @var \Fitblocks\Cashier\Order\OrderItemPreprocessorCollection */
     protected $orderItemPreprocessors;
 
     /**
@@ -264,7 +264,7 @@ class Plan implements PlanContract
     }
 
     /**
-     * @return \Laravel\Cashier\Order\OrderItemPreprocessorCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemPreprocessorCollection
      */
     public function orderItemPreprocessors()
     {
@@ -272,8 +272,8 @@ class Plan implements PlanContract
     }
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItemPreprocessorCollection $preprocessors
-     * @return \Laravel\Cashier\Plan\Contracts\Plan
+     * @param \Fitblocks\Cashier\Order\OrderItemPreprocessorCollection $preprocessors
+     * @return \Fitblocks\Cashier\Plan\Contracts\Plan
      */
     public function setOrderItemPreprocessors(OrderItemPreprocessorCollection $preprocessors)
     {

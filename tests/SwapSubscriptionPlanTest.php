@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\SubscriptionPlanSwapped;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Subscription;
+use Fitblocks\Cashier\Events\SubscriptionPlanSwapped;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Subscription;
 
 class SwapSubscriptionPlanTest extends BaseTestCase
 {

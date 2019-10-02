@@ -1,23 +1,23 @@
 <?php
 
-namespace Laravel\Cashier\Coupon\Contracts;
+namespace Fitblocks\Cashier\Coupon\Contracts;
 
-use Laravel\Cashier\Coupon\Coupon;
-use Laravel\Cashier\Coupon\RedeemedCoupon;
-use Laravel\Cashier\Exceptions\CouponException;
-use Laravel\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Coupon\Coupon;
+use Fitblocks\Cashier\Coupon\RedeemedCoupon;
+use Fitblocks\Cashier\Exceptions\CouponException;
+use Fitblocks\Cashier\Order\OrderItemCollection;
 
 interface CouponHandler
 {
     /**
      * @param array $context
-     * @return \Laravel\Cashier\Coupon\Contracts\CouponHandler
+     * @return \Fitblocks\Cashier\Coupon\Contracts\CouponHandler
      */
     public function withContext(array $context);
 
     /**
-     * @param \Laravel\Cashier\Coupon\Coupon $coupon
-     * @param \Laravel\Cashier\Coupon\Contracts\AcceptsCoupons $model
+     * @param \Fitblocks\Cashier\Coupon\Coupon $coupon
+     * @param \Fitblocks\Cashier\Coupon\Contracts\AcceptsCoupons $model
      * @return bool
      * @throws \Throwable|CouponException
      */
@@ -26,16 +26,16 @@ interface CouponHandler
     /**
      * Apply the coupon to the OrderItemCollection
      *
-     * @param \Laravel\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function handle(RedeemedCoupon $redeemedCoupon, OrderItemCollection $items);
 
     /**
-     * @param \Laravel\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function getDiscountOrderItems(?RedeemedCoupon $redeemedCoupon, OrderItemCollection $items);
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Cashier\Traits;
+namespace Fitblocks\Cashier\Traits;
 
-use Laravel\Cashier\Cashier;
+use Fitblocks\Cashier\Cashier;
 use Money\Money;
 
 trait FormatsAmount {

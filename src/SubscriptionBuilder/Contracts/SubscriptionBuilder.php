@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\SubscriptionBuilder\Contracts;
+namespace Fitblocks\Cashier\SubscriptionBuilder\Contracts;
 
 use Carbon\Carbon;
 

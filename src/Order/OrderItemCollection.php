@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
@@ -35,7 +35,7 @@ class OrderItemCollection extends Collection
      * Filter this collection by owner.
      *
      * @param \Illuminate\Database\Eloquent\Model $owner
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function whereOwner($owner)
     {
@@ -64,7 +64,7 @@ class OrderItemCollection extends Collection
      * Filter this collection by currency symbol.
      *
      * @param $currency
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function whereCurrency($currency)
     {
@@ -109,7 +109,7 @@ class OrderItemCollection extends Collection
     /**
      * Preprocesses the OrderItems.
      *
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function preprocess()
     {
@@ -125,7 +125,7 @@ class OrderItemCollection extends Collection
      * Create an OrderItemCollection from a basic Collection.
      *
      * @param \Illuminate\Support\Collection $collection
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public static function fromBaseCollection(BaseCollection $collection)
     {
@@ -135,7 +135,7 @@ class OrderItemCollection extends Collection
     /**
      * Persist all items in the collection.
      *
-     * @return \Illuminate\Support\Collection|\Laravel\Cashier\Order\OrderItemCollection
+     * @return \Illuminate\Support\Collection|\Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function save()
     {

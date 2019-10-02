@@ -1,17 +1,17 @@
 <?php
 
-namespace Laravel\Cashier\Coupon;
+namespace Fitblocks\Cashier\Coupon;
 
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
 use Money\Money;
 
 class FixedDiscountHandler extends BaseCouponHandler
 {
     /**
-     * @param \Laravel\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Coupon\RedeemedCoupon $redeemedCoupon
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function getDiscountOrderItems(?RedeemedCoupon $redeemedCoupon, OrderItemCollection $items)
     {
@@ -52,7 +52,7 @@ class FixedDiscountHandler extends BaseCouponHandler
     }
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItem $firstItem
+     * @param \Fitblocks\Cashier\Order\OrderItem $firstItem
      * @return int
      */
     protected function quantity(OrderItem $firstItem)
@@ -63,7 +63,7 @@ class FixedDiscountHandler extends BaseCouponHandler
     }
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItem $firstItem
+     * @param \Fitblocks\Cashier\Order\OrderItem $firstItem
      * @return float|int
      */
     protected function taxPercentage(OrderItem $firstItem)

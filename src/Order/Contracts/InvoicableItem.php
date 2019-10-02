@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Order\Contracts;
+namespace Fitblocks\Cashier\Order\Contracts;
 
 interface InvoicableItem {
 

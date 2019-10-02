@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Events;
+namespace Fitblocks\Cashier\Events;
 
 use Illuminate\Queue\SerializesModels;
 
@@ -11,7 +11,7 @@ class OrderInvoiceAvailable
     /**
      * The created order.
      *
-     * @var \Laravel\Cashier\Order\Order
+     * @var \Fitblocks\Cashier\Order\Order
      */
     public $order;
 

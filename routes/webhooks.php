@@ -1,6 +1,6 @@
 <?php
 
-Route::namespace('\Laravel\Cashier\Http\Controllers')->group(function () {
+Route::namespace('\Fitblocks\Cashier\Http\Controllers')->group(function () {
 
     Route::name('webhooks.mollie.default')->post(
         'webhooks/mollie',

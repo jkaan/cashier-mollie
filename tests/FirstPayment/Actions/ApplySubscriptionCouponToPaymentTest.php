@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\Tests\FirstPayment\Actions;
+namespace Fitblocks\Cashier\Tests\FirstPayment\Actions;
 
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\FirstPayment\Actions\ApplySubscriptionCouponToPayment as Action;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\FirstPayment\Actions\ApplySubscriptionCouponToPayment as Action;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 class ApplySubscriptionCouponToPaymentTest extends BaseTestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Laravel\Cashier\Plan;
+namespace Fitblocks\Cashier\Plan;
 
 use Illuminate\Support\Collection;
 

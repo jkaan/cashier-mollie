@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Cashier;
+namespace Fitblocks\Cashier;
 
-use Laravel\Cashier\Order\Contracts\MinimumPayment as MinimumPaymentContract;
+use Fitblocks\Cashier\Order\Contracts\MinimumPayment as MinimumPaymentContract;
 use Mollie\Api\Resources\Mandate;
 use Money\Money;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\FirstPayment\Actions;
+namespace Fitblocks\Cashier\FirstPayment\Actions;
 
 use Illuminate\Support\Collection;
-use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Exceptions\CurrencyMismatchException;
-use Laravel\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Cashier;
+use Fitblocks\Cashier\Exceptions\CurrencyMismatchException;
+use Fitblocks\Cashier\Order\OrderItemCollection;
 
 class ActionCollection extends Collection
 {
@@ -59,7 +59,7 @@ class ActionCollection extends Collection
     {
         $payload = [];
         foreach ($this->items as $item) {
-            /** @var \Laravel\Cashier\FirstPayment\Actions\BaseAction $item */
+            /** @var \Fitblocks\Cashier\FirstPayment\Actions\BaseAction $item */
             $payload[] = $item->getPayload();
         }
 
@@ -67,13 +67,13 @@ class ActionCollection extends Collection
     }
 
     /**
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function processedOrderItems()
     {
         $orderItems = new OrderItemCollection;
 
-        /** @var \Laravel\Cashier\FirstPayment\Actions\BaseAction $action */
+        /** @var \Fitblocks\Cashier\FirstPayment\Actions\BaseAction $action */
         foreach ($this->items as $action) {
             $orderItems = $orderItems->concat($action->makeProcessedOrderItems());
         }

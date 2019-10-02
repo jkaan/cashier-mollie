@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Exceptions;
+namespace Fitblocks\Cashier\Exceptions;
 
 use Exception;
 use Throwable;

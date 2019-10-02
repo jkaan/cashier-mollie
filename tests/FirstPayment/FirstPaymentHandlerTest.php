@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Tests\FirstPayment;
+namespace Fitblocks\Cashier\Tests\FirstPayment;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\MandateUpdated;
-use Laravel\Cashier\FirstPayment\Actions\AddBalance;
-use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Events\MandateUpdated;
+use Fitblocks\Cashier\FirstPayment\Actions\AddBalance;
+use Fitblocks\Cashier\FirstPayment\FirstPaymentHandler;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class FirstPaymentHandlerTest extends BaseTestCase
 {

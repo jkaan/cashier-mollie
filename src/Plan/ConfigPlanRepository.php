@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Laravel\Cashier\Plan;
+namespace Fitblocks\Cashier\Plan;
 
 use Illuminate\Support\Str;
-use Laravel\Cashier\Exceptions\PlanNotFoundException;
-use Laravel\Cashier\Order\OrderItemPreprocessorCollection as Preprocessors;
-use Laravel\Cashier\Plan\Contracts\PlanRepository;
-use Laravel\Cashier\Plan\Contracts\Plan as PlanContract;
+use Fitblocks\Cashier\Exceptions\PlanNotFoundException;
+use Fitblocks\Cashier\Order\OrderItemPreprocessorCollection as Preprocessors;
+use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
+use Fitblocks\Cashier\Plan\Contracts\Plan as PlanContract;
 
 class ConfigPlanRepository implements PlanRepository
 {
@@ -16,7 +16,7 @@ class ConfigPlanRepository implements PlanRepository
      * Get a plan by its name.
      *
      * @param $name
-     * @return null|\Laravel\Cashier\Plan\Contracts\Plan
+     * @return null|\Fitblocks\Cashier\Plan\Contracts\Plan
      */
     public static function find(string $name)
     {
@@ -33,7 +33,7 @@ class ConfigPlanRepository implements PlanRepository
      * Get a plan by its name or throw an exception.
      *
      * @param string $name
-     * @return \Laravel\Cashier\Plan\Contracts\Plan
+     * @return \Fitblocks\Cashier\Plan\Contracts\Plan
      * @throws PlanNotFoundException
      */
     public static function findOrFail(string $name)
@@ -46,7 +46,7 @@ class ConfigPlanRepository implements PlanRepository
     }
 
     /**
-     * @return \Laravel\Cashier\Plan\PlanCollection
+     * @return \Fitblocks\Cashier\Plan\PlanCollection
      */
     protected static function all()
     {
@@ -64,7 +64,7 @@ class ConfigPlanRepository implements PlanRepository
      * @param string $name
      * @param array $planConfig
      * @param array $planDefaults
-     * @return \Laravel\Cashier\Plan\Plan
+     * @return \Fitblocks\Cashier\Plan\Plan
      */
     public static function populatePlan(string $name, array $planConfig, array $planDefaults = [])
     {

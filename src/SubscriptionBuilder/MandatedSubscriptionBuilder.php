@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\SubscriptionBuilder;
+namespace Fitblocks\Cashier\SubscriptionBuilder;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\Plan\Contracts\PlanRepository;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contract;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contract;
 
 /**
  * Creates and configures a subscription for an existing Mollie Mandate.
@@ -53,11 +53,11 @@ class MandatedSubscriptionBuilder implements Contract
     /**
      * The Plan being subscribed to.
      *
-     * @var \Laravel\Cashier\Plan\Plan
+     * @var \Fitblocks\Cashier\Plan\Plan
      */
     protected $plan;
 
-    /** @var \Laravel\Cashier\Coupon\Coupon */
+    /** @var \Fitblocks\Cashier\Coupon\Coupon */
     protected $coupon;
 
     /** @var bool */
@@ -72,7 +72,7 @@ class MandatedSubscriptionBuilder implements Contract
      * @param mixed $owner
      * @param string $name
      * @param string $plan
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      */
     public function __construct(Model $owner, string $name, string $plan)
     {
@@ -86,7 +86,7 @@ class MandatedSubscriptionBuilder implements Contract
      * Create a new Cashier subscription.
      *
      * @return Subscription
-     * \Laravel\Cashier\Exceptions\CouponException
+     * \Fitblocks\Cashier\Exceptions\CouponException
      */
     public function create()
     {
@@ -176,8 +176,8 @@ class MandatedSubscriptionBuilder implements Contract
      * Specify a coupon.
      *
      * @param string $coupon
-     * @return $this|\Laravel\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder
-     * @throws \Laravel\Cashier\Exceptions\CouponNotFoundException
+     * @return $this|\Fitblocks\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder
+     * @throws \Fitblocks\Cashier\Exceptions\CouponNotFoundException
      */
     public function withCoupon(string $coupon)
     {

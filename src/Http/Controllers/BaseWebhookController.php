@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Http\Controllers;
+namespace Fitblocks\Cashier\Http\Controllers;
 
 use Mollie\Api\Exceptions\ApiException;
 

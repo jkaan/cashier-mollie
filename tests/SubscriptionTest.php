@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests;
+namespace Fitblocks\Cashier\Tests;
 
 use Carbon\Carbon;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 use LogicException;
 
 class SubscriptionTest extends BaseTestCase
@@ -148,8 +148,8 @@ class SubscriptionTest extends BaseTestCase
         $item_1 = $subscription->scheduledOrderItem;
         $this->assertNotNull($item_1);
         $this->assertSame("2018-01-01 00:00:00", $item_1->process_at->toDateTimeString());
-        $this->assertSame("Laravel\Cashier\Subscription", $item_1->orderable_type);
-        $this->assertSame("Laravel\Cashier\Tests\Fixtures\User", $item_1->owner_type);
+        $this->assertSame("Fitblocks\Cashier\Subscription", $item_1->orderable_type);
+        $this->assertSame("Fitblocks\Cashier\Tests\Fixtures\User", $item_1->owner_type);
         $this->assertSame("1", $item_1->orderable_id);
         $this->assertSame("1", $item_1->owner_id);
         $this->assertSame("Monthly payment", $item_1->description);
@@ -173,8 +173,8 @@ class SubscriptionTest extends BaseTestCase
         $item_2 = $subscription->scheduledOrderItem;
 
         $this->assertSame("2018-02-01 00:00:00", $item_2->process_at->toDateTimeString());
-        $this->assertSame("Laravel\Cashier\Subscription", $item_2->orderable_type);
-        $this->assertSame("Laravel\Cashier\Tests\Fixtures\User", $item_2->owner_type);
+        $this->assertSame("Fitblocks\Cashier\Subscription", $item_2->orderable_type);
+        $this->assertSame("Fitblocks\Cashier\Tests\Fixtures\User", $item_2->owner_type);
         $this->assertSame("1", $item_2->orderable_id);
         $this->assertSame("1", $item_2->owner_id);
         $this->assertSame("Monthly payment", $item_2->description);
@@ -199,8 +199,8 @@ class SubscriptionTest extends BaseTestCase
         $item_3 = $subscription->scheduledOrderItem;
 
         $this->assertSame("2018-03-01 00:00:00", $item_3->process_at->toDateTimeString());
-        $this->assertSame("Laravel\Cashier\Subscription", $item_3->orderable_type);
-        $this->assertSame("Laravel\Cashier\Tests\Fixtures\User", $item_3->owner_type);
+        $this->assertSame("Fitblocks\Cashier\Subscription", $item_3->orderable_type);
+        $this->assertSame("Fitblocks\Cashier\Tests\Fixtures\User", $item_3->owner_type);
         $this->assertSame("1", $item_3->orderable_id);
         $this->assertSame("1", $item_3->owner_id);
         $this->assertSame("Monthly payment", $item_3->description);

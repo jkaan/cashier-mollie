@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests\FirstPayment;
+namespace Fitblocks\Cashier\Tests\FirstPayment;
 
-use Laravel\Cashier\FirstPayment\Actions\AddBalance;
-use Laravel\Cashier\FirstPayment\FirstPaymentBuilder;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\FirstPayment\Actions\AddBalance;
+use Fitblocks\Cashier\FirstPayment\FirstPaymentBuilder;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\SequenceType;
 

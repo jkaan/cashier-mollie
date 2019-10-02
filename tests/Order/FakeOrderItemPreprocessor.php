@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
 use Illuminate\Support\Arr;
-use Laravel\Cashier\Order\BaseOrderItemPreprocessor;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Order\BaseOrderItemPreprocessor;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class FakeOrderItemPreprocessor extends BaseOrderItemPreprocessor {
 
@@ -14,8 +14,8 @@ class FakeOrderItemPreprocessor extends BaseOrderItemPreprocessor {
     protected $result;
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     public function handle(OrderItemCollection $items)
     {

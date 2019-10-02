@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\Tests\FirstPayment\Actions;
+namespace Fitblocks\Cashier\Tests\FirstPayment\Actions;
 
 use Carbon\Carbon;
-use Laravel\Cashier\Coupon\AppliedCoupon;
-use Laravel\Cashier\Coupon\RedeemedCoupon;
-use Laravel\Cashier\FirstPayment\Actions\StartSubscription;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Coupon\AppliedCoupon;
+use Fitblocks\Cashier\Coupon\RedeemedCoupon;
+use Fitblocks\Cashier\FirstPayment\Actions\StartSubscription;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class StartSubscriptionTest extends BaseTestCase
 {

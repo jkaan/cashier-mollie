@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Plan;
+namespace Fitblocks\Cashier\Tests\Plan;
 
 use Illuminate\Support\Facades\Config;
-use Laravel\Cashier\Exceptions\PlanNotFoundException;
-use Laravel\Cashier\Plan\ConfigPlanRepository;
-use Laravel\Cashier\Plan\Contracts\Plan;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Exceptions\PlanNotFoundException;
+use Fitblocks\Cashier\Plan\ConfigPlanRepository;
+use Fitblocks\Cashier\Plan\Contracts\Plan;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class ConfigPlanRepositoryTest extends BaseTestCase
 {
@@ -46,7 +46,7 @@ class ConfigPlanRepositoryTest extends BaseTestCase
     }
 
     /** @test
-     * @throws \Laravel\Cashier\Exceptions\PlanNotFoundException
+     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      */
     public function findOrFailCorrect()
     {

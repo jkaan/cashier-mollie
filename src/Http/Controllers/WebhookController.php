@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier\Http\Controllers;
+namespace Fitblocks\Cashier\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Laravel\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\Order;
 use Mollie\Api\Types\PaymentStatus;
 use Symfony\Component\HttpFoundation\Response;
 

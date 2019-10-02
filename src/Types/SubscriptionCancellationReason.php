@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Types;
+namespace Fitblocks\Cashier\Types;
 
 class SubscriptionCancellationReason
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Cashier\Events\FirstPaymentPaid;
-use Laravel\Cashier\Events\OrderInvoiceAvailable;
-use Laravel\Cashier\Events\OrderPaymentPaid;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderInvoiceSubscriber;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Events\FirstPaymentPaid;
+use Fitblocks\Cashier\Events\OrderInvoiceAvailable;
+use Fitblocks\Cashier\Events\OrderPaymentPaid;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderInvoiceSubscriber;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 use Mollie\Api\Resources\Payment;
 
 class OrderInvoiceSubscriberTest extends BaseTestCase

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Laravel\Cashier\Plan\Contracts;
+namespace Fitblocks\Cashier\Plan\Contracts;
 
-use Laravel\Cashier\Order\OrderItemPreprocessorCollection;
+use Fitblocks\Cashier\Order\OrderItemPreprocessorCollection;
 use Money\Money;
 
 interface Plan
@@ -95,13 +95,13 @@ interface Plan
     public function setFirstPaymentWebhookUrl(string $webhookUrl);
 
     /**
-     * @return \Laravel\Cashier\Order\OrderItemPreprocessorCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemPreprocessorCollection
      */
     public function orderItemPreprocessors();
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItemPreprocessorCollection $preprocessors
-     * @return \Laravel\Cashier\Plan\Contracts\Plan
+     * @param \Fitblocks\Cashier\Order\OrderItemPreprocessorCollection $preprocessors
+     * @return \Fitblocks\Cashier\Plan\Contracts\Plan
      */
     public function setOrderItemPreprocessors(OrderItemPreprocessorCollection $preprocessors);
 }

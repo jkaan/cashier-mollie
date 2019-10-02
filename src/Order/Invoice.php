@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Cashier\Order;
+namespace Fitblocks\Cashier\Order;
 
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Laravel\Cashier\Order\Contracts\InvoicableItem;
-use Laravel\Cashier\Traits\FormatsAmount;
+use Fitblocks\Cashier\Order\Contracts\InvoicableItem;
+use Fitblocks\Cashier\Traits\FormatsAmount;
 use Money\Money;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -138,7 +138,7 @@ class Invoice
     }
 
     /**
-     * @param \Laravel\Cashier\Order\Contracts\InvoicableItem $item
+     * @param \Fitblocks\Cashier\Order\Contracts\InvoicableItem $item
      * @return $this
      */
     public function addItem(InvoicableItem $item)

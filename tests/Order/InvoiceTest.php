@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Laravel\Cashier\Order\Invoice;
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Order\Invoice;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class InvoiceTest extends BaseTestCase
 {

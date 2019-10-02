@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Cashier\Coupon\Contracts;
+namespace Fitblocks\Cashier\Coupon\Contracts;
 
 interface AcceptsCoupons
 {

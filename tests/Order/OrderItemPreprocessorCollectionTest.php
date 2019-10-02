@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
-use Laravel\Cashier\Order\OrderItem;
-use Laravel\Cashier\Order\OrderItemCollection;
-use Laravel\Cashier\Order\OrderItemPreprocessorCollection;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Order\OrderItem;
+use Fitblocks\Cashier\Order\OrderItemCollection;
+use Fitblocks\Cashier\Order\OrderItemPreprocessorCollection;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class OrderItemPreprocessorCollectionTest extends BaseTestCase
 {
@@ -51,8 +51,8 @@ class OrderItemPreprocessorCollectionTest extends BaseTestCase
     }
 
     /**
-     * @param \Laravel\Cashier\Order\OrderItemCollection $items
-     * @return \Laravel\Cashier\Tests\Order\FakeOrderItemPreprocessor
+     * @param \Fitblocks\Cashier\Order\OrderItemCollection $items
+     * @return \Fitblocks\Cashier\Tests\Order\FakeOrderItemPreprocessor
      */
     protected function getFakePreprocessor(OrderItemCollection $items)
     {

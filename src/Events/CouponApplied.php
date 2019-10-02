@@ -1,19 +1,19 @@
 <?php
 
-namespace Laravel\Cashier\Events;
+namespace Fitblocks\Cashier\Events;
 
-use Laravel\Cashier\Coupon\AppliedCoupon;
-use Laravel\Cashier\Coupon\RedeemedCoupon;
+use Fitblocks\Cashier\Coupon\AppliedCoupon;
+use Fitblocks\Cashier\Coupon\RedeemedCoupon;
 
 class CouponApplied
 {
     /**
-     * @var \Laravel\Cashier\Coupon\RedeemedCoupon
+     * @var \Fitblocks\Cashier\Coupon\RedeemedCoupon
      */
     public $redeemedCoupon;
 
     /**
-     * @var \Laravel\Cashier\Coupon\AppliedCoupon
+     * @var \Fitblocks\Cashier\Coupon\AppliedCoupon
      */
     public $appliedCoupon;
 

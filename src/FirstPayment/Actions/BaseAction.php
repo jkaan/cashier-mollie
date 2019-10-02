@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier\FirstPayment\Actions;
+namespace Fitblocks\Cashier\FirstPayment\Actions;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Cashier;
+use Fitblocks\Cashier\Cashier;
 
 abstract class BaseAction
 {
@@ -42,14 +42,14 @@ abstract class BaseAction
     /**
      * Prepare a stub of OrderItems processed with the payment.
      *
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     abstract public function makeProcessedOrderItems();
 
     /**
      * Execute this action and return the created OrderItemCollection.
      *
-     * @return \Laravel\Cashier\Order\OrderItemCollection
+     * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
     abstract public function execute();
 

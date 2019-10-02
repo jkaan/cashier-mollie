@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Database\Factories;
+namespace Fitblocks\Cashier\Database\Factories;
 
 use Carbon\Carbon;
 use Faker\Generator as Faker;
-use Laravel\Cashier\Subscription;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Subscription;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 $factory->define(Subscription::class, function (Faker $faker) {
     return [

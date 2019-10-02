@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
 use Carbon\Carbon;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Order\OrderNumberGenerator;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Order\OrderNumberGenerator;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 use Illuminate\Support\Str;
 
 class OrderNumberGeneratorTest extends BaseTestCase

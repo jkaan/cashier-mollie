@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Order;
+namespace Fitblocks\Cashier\Tests\Order;
 
-use Laravel\Cashier\Order\Invoice;
-use Laravel\Cashier\Order\Order;
-use Laravel\Cashier\Tests\BaseTestCase;
-use Laravel\Cashier\Tests\Fixtures\User;
+use Fitblocks\Cashier\Order\Invoice;
+use Fitblocks\Cashier\Order\Order;
+use Fitblocks\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Tests\Fixtures\User;
 
 class OrderCollectionTest extends BaseTestCase
 {

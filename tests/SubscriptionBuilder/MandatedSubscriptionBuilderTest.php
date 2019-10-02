@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Cashier\Tests\SubscriptionBuilder;
+namespace Fitblocks\Cashier\Tests\SubscriptionBuilder;
 
 use Carbon\Carbon;
-use Laravel\Cashier\Coupon\AppliedCoupon;
-use Laravel\Cashier\Coupon\RedeemedCoupon;
-use Laravel\Cashier\Exceptions\CouponException;
-use Laravel\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Coupon\AppliedCoupon;
+use Fitblocks\Cashier\Coupon\RedeemedCoupon;
+use Fitblocks\Cashier\Exceptions\CouponException;
+use Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class MandatedSubscriptionBuilderTest extends BaseTestCase
 {
@@ -84,7 +84,7 @@ class MandatedSubscriptionBuilderTest extends BaseTestCase
     }
 
     /**
-     * @return \Laravel\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder
+     * @return \Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder
      */
     protected function getBuilder()
     {

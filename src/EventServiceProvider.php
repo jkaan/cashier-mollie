@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier;
+namespace Fitblocks\Cashier;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Laravel\Cashier\Order\OrderInvoiceSubscriber;
+use Fitblocks\Cashier\Order\OrderInvoiceSubscriber;
 
 class EventServiceProvider extends ServiceProvider
 {

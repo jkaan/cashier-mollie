@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Cashier\Tests\Coupon;
+namespace Fitblocks\Cashier\Tests\Coupon;
 
-use Laravel\Cashier\Coupon\ConfigCouponRepository;
-use Laravel\Cashier\Coupon\Contracts\CouponRepository;
-use Laravel\Cashier\Coupon\Coupon;
-use Laravel\Cashier\Exceptions\CouponNotFoundException;
-use Laravel\Cashier\Tests\BaseTestCase;
+use Fitblocks\Cashier\Coupon\ConfigCouponRepository;
+use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
+use Fitblocks\Cashier\Coupon\Coupon;
+use Fitblocks\Cashier\Exceptions\CouponNotFoundException;
+use Fitblocks\Cashier\Tests\BaseTestCase;
 
 class ConfigCouponRepositoryTest extends BaseTestCase
 {
@@ -26,7 +26,7 @@ class ConfigCouponRepositoryTest extends BaseTestCase
         ];
         $coupons = [
             'test-coupon' => [
-                'handler' => \Laravel\Cashier\Coupon\FixedDiscountHandler::class,
+                'handler' => \Fitblocks\Cashier\Coupon\FixedDiscountHandler::class,
                 'context' => [
                     'description' => 'Welcome to '.config('app.name'),
                     'discount' => [

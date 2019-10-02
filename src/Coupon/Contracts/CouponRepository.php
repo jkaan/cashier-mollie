@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Cashier\Coupon\Contracts;
+namespace Fitblocks\Cashier\Coupon\Contracts;
 
-use Laravel\Cashier\Coupon\Coupon;
-use Laravel\Cashier\Exceptions\CouponNotFoundException;
+use Fitblocks\Cashier\Coupon\Coupon;
+use Fitblocks\Cashier\Exceptions\CouponNotFoundException;
 
 interface CouponRepository
 {
