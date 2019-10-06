@@ -68,7 +68,7 @@ class StartSubscription extends BaseAction
 
         $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPay($this->plan->amount());
 
-        $this->nextPaymentAt = Carbon::now()->add(1, 'month')->startOfMonth();
+        $this->nextPaymentAt = Carbon::parse($this->plan->interval())->startOfMonth();
         $this->builder = new MandatedSubscriptionBuilder(
             $this->owner,
             $this->name,
