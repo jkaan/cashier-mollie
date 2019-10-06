@@ -60,9 +60,10 @@ class FirstPaymentSubscriptionBuilder implements Contract
      * @param string $name
      * @param string $plan
      * @param Box $box
+     * @param Carbon $startDate
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(Model $owner, string $name, string $plan, Box $box)
+    public function __construct(Model $owner, string $name, string $plan, Box $box, Carbon $startDate)
     {
         $this->owner = $owner;
         $this->name = $name;
@@ -72,7 +73,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
         $this->firstPaymentBuilder = new FirstPaymentBuilder($owner, [], $box);
         $this->firstPaymentBuilder->setFirstPaymentMethod($this->plan->firstPaymentMethod());
 
-        $this->startSubscription = new StartSubscription($owner, $name, $plan, $box);
+        $this->startSubscription = new StartSubscription($owner, $name, $plan, $box, $startDate);
         $this->firstPaymentBuilder->setRedirectUrl(route('finish_member_signup'));
     }
 

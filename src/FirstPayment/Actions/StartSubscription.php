@@ -41,6 +41,8 @@ class StartSubscription extends BaseAction
 
     /** @var Box */
     private $box;
+    /** @var Carbon */
+    private $startDate;
 
     /**
      * Create a new subscription builder instance.
@@ -49,9 +51,10 @@ class StartSubscription extends BaseAction
      * @param string $name
      * @param string $plan
      * @param Box $box
+     * @param Carbon $startDate
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(Model $owner, string $name, string $plan, Box $box)
+    public function __construct(Model $owner, string $name, string $plan, Box $box, Carbon $startDate)
     {
         $this->owner = $owner;
         $this->taxPercentage = $this->owner->taxPercentage();
@@ -66,17 +69,19 @@ class StartSubscription extends BaseAction
         $this->couponRepository = app()->make(CouponRepository::class);
         $this->box = $box;
 
-        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPay($this->plan->amount());
+        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPayFromDay($this->plan->amount(), $startDate);
 
         $this->nextPaymentAt = Carbon::parse($this->plan->interval())->startOfMonth();
         $this->builder = new MandatedSubscriptionBuilder(
             $this->owner,
             $this->name,
             $this->plan->name(),
-            $this->box
+            $this->box,
+            $startDate
         );
 
         $this->builder->nextPaymentAt($this->nextPaymentAt);
+        $this->startDate = $startDate;
     }
 
     /**
@@ -87,7 +92,7 @@ class StartSubscription extends BaseAction
      */
     public static function createFromPayload(array $payload, Model $owner)
     {
-        $action = new static($owner, $payload['name'], $payload['plan'], Box::find($payload['box_id']));
+        $action = new static($owner, $payload['name'], $payload['plan'], Box::find($payload['box_id']), Carbon::parse($payload['startDate']));
 
         // Already validated when preparing the first payment, so don't validate again
         $action->builder()->skipCouponValidation();
@@ -127,6 +132,7 @@ class StartSubscription extends BaseAction
             'plan' => $this->plan->name(),
             'name' => $this->name,
             'box_id' => $this->box->id,
+            'startDate' => $this->startDate->toIso8601String(),
             'trialExpires' => !empty($this->trialExpires) ? $this->trialExpires->toIso8601String() : null,
             'quantity' => !empty($this->quantity) ? $this->quantity : null,
             'nextPaymentAt' => !empty($this->nextPaymentAt) ? $this->nextPaymentAt->toIso8601String() : null,

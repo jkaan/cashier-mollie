@@ -68,6 +68,8 @@ class MandatedSubscriptionBuilder implements Contract
     protected $validateCoupon = true;
     /** @var Box */
     private $box;
+    /** @var Carbon */
+    private $startDate;
 
     /**
      * Create a new subscription builder instance.
@@ -77,13 +79,14 @@ class MandatedSubscriptionBuilder implements Contract
      * @param string $plan
      * @param Box $box
      */
-    public function __construct(Model $owner, string $name, string $plan, Box $box)
+    public function __construct(Model $owner, string $name, string $plan, Box $box, Carbon $startDate)
     {
         $this->name = $name;
         $this->owner = $owner;
         $this->nextPaymentAt = Carbon::now();
         $this->plan = app(PlanRepository::class)::findOrFail($plan);
         $this->box = $box;
+        $this->startDate = $startDate;
     }
 
     /**
@@ -94,7 +97,7 @@ class MandatedSubscriptionBuilder implements Contract
      */
     public function create()
     {
-        $now = now();
+        $now = $this->startDate;
 
         return DB::transaction(function () use ($now) {
             $subscription = $this->makeSubscription($now);
