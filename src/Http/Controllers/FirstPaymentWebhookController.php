@@ -2,6 +2,7 @@
 
 namespace Fitblocks\Cashier\Http\Controllers;
 
+use App\Repository\BoxRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Fitblocks\Cashier\Events\FirstPaymentFailed;
@@ -19,10 +20,11 @@ class FirstPaymentWebhookController extends BaseWebhookController
     public function handleWebhook(Request $request)
     {
         $payment = $this->getPaymentById($request->get('id'));
+        $box = app(BoxRepositoryInterface::class)->getActiveBox();
 
         if ($payment) {
             if ($payment->isPaid()) {
-                $order = (new FirstPaymentHandler($payment))->execute();
+                $order = (new FirstPaymentHandler($payment, $box))->execute();
 
                 Event::dispatch(new FirstPaymentPaid($payment, $order));
             } elseif ($payment->isFailed()) {

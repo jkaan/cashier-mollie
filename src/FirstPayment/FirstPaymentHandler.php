@@ -2,6 +2,7 @@
 
 namespace Fitblocks\Cashier\FirstPayment;
 
+use App\Box;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Fitblocks\Cashier\Events\MandateUpdated;
@@ -21,17 +22,21 @@ class FirstPaymentHandler
 
     /** @var \Illuminate\Support\Collection */
     protected $actions;
+    /** @var Box */
+    private $box;
 
     /**
      * FirstPaymentHandler constructor.
      *
      * @param \Mollie\Api\Resources\Payment $payment
+     * @param Box $box
      */
-    public function __construct(Payment $payment)
+    public function __construct(Payment $payment, Box $box)
     {
         $this->payment = $payment;
         $this->owner = $this->extractOwner();
         $this->actions = $this->extractActions();
+        $this->box = $box;
     }
 
     /**
@@ -50,6 +55,7 @@ class FirstPaymentHandler
             return Order::createProcessedFromItems($orderItems, [
                 'mollie_payment_id' => $this->payment->id,
                 'mollie_payment_status' => $this->payment->status,
+                'box_id' => $this->box->id,
             ]);
         });
 
@@ -78,7 +84,7 @@ class FirstPaymentHandler
      */
     protected function extractActions()
     {
-        $actions = new Collection((array) $this->payment->metadata->actions);
+        $actions = new Collection((array)$this->payment->metadata->actions);
 
         return $actions->map(function ($actionMeta) {
             return $actionMeta->handler::createFromPayload(

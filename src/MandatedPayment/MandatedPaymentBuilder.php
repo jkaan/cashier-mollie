@@ -2,6 +2,8 @@
 
 namespace Fitblocks\Cashier\MandatedPayment;
 
+use App\MollieWrapper;
+use App\Repository\BoxRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Fitblocks\Cashier\Cashier;
 use Mollie\Api\Types\SequenceType;
@@ -34,6 +36,8 @@ class MandatedPaymentBuilder
      */
     protected $overrides;
 
+    private $useMollieWrapper;
+
     /**
      * MandatedPaymentBuilder constructor.
      *
@@ -49,12 +53,24 @@ class MandatedPaymentBuilder
         Money $amount,
         string $webhookUrl,
         array $overrides = []
-    ) {
+    )
+    {
         $this->owner = $owner;
         $this->description = $description;
         $this->amount = $amount;
         $this->webhookUrl = $webhookUrl;
         $this->overrides = $overrides;
+        $this->useMollieWrapper = false;
+    }
+
+    public function setWebhookUrl(string $webhookUrl)
+    {
+        $this->webhookUrl = $webhookUrl;
+    }
+
+    public function useMollieWrapper()
+    {
+        $this->useMollieWrapper = true;
     }
 
     /**
@@ -82,6 +98,10 @@ class MandatedPaymentBuilder
      */
     public function create(array $overrides = [])
     {
-        return mollie()->payments()->create($this->getPayload($overrides));
+        if ($this->useMollieWrapper) {
+            return (new MollieWrapper(app(BoxRepositoryInterface::class)))->createPayment($this->getPayload($overrides));
+        } else {
+            return mollie()->payments()->create($this->getPayload($overrides));
+        }
     }
 }

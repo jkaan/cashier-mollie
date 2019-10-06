@@ -2,13 +2,13 @@
 
 namespace Fitblocks\Cashier\Tests\Fixtures;
 
-use Fitblocks\Cashier\Billable;
+use Fitblocks\Cashier\FitblocksBillable;
 use Illuminate\Database\Eloquent\Model;
 use Fitblocks\Cashier\Order\Contracts\ProvidesInvoiceInformation;
 
 class User extends Model implements ProvidesInvoiceInformation
 {
-    use Billable;
+    use FitblocksBillable;
 
     protected $dates = ['trial_ends_at'];
 

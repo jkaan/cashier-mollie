@@ -2,8 +2,8 @@
 
 namespace Fitblocks\Cashier\SubscriptionBuilder;
 
+use App\Box;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Fitblocks\Cashier\FirstPayment\Actions\ActionCollection;
 use Fitblocks\Cashier\FirstPayment\Actions\AddGenericOrderItem;
 use Fitblocks\Cashier\FirstPayment\Actions\ApplySubscriptionCouponToPayment;
@@ -12,6 +12,7 @@ use Fitblocks\Cashier\FirstPayment\FirstPaymentBuilder;
 use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
 use Fitblocks\Cashier\Plan\Plan;
 use Fitblocks\Cashier\SubscriptionBuilder\Contracts\SubscriptionBuilder as Contract;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Creates and configures a Mollie first payment to create a new mandate via Mollie's checkout
@@ -58,18 +59,21 @@ class FirstPaymentSubscriptionBuilder implements Contract
      * @param mixed $owner
      * @param string $name
      * @param string $plan
+     * @param Box $box
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(Model $owner, string $name, string $plan)
+    public function __construct(Model $owner, string $name, string $plan, Box $box)
     {
         $this->owner = $owner;
         $this->name = $name;
 
         $this->plan = app(PlanRepository::class)::findOrFail($plan);
 
-        $this->firstPaymentBuilder = new FirstPaymentBuilder($owner);
+        $this->firstPaymentBuilder = new FirstPaymentBuilder($owner, [], $box);
         $this->firstPaymentBuilder->setFirstPaymentMethod($this->plan->firstPaymentMethod());
 
-        $this->startSubscription = new StartSubscription($owner, $name, $plan);
+        $this->startSubscription = new StartSubscription($owner, $name, $plan, $box);
+        $this->firstPaymentBuilder->setRedirectUrl(route('finish_member_signup'));
     }
 
     /**
@@ -85,7 +89,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
         $actions = new ActionCollection([$this->startSubscription]);
         $coupon = $this->startSubscription->coupon();
 
-        if($this->isTrial) {
+        if ($this->isTrial) {
             $taxPercentage = $this->owner->taxPercentage() * 0.01;
             $total = $this->plan->firstPaymentAmount();
 
@@ -109,7 +113,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     /**
      * Specify the number of days of the trial.
      *
-     * @param  int $trialDays
+     * @param int $trialDays
      * @return $this
      * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
@@ -122,7 +126,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     /**
      * Specify the ending date of the trial.
      *
-     * @param  Carbon $trialUntil
+     * @param Carbon $trialUntil
      * @return $this
      * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
@@ -138,7 +142,7 @@ class FirstPaymentSubscriptionBuilder implements Contract
     /**
      * Specify the quantity of the subscription.
      *
-     * @param  int $quantity
+     * @param int $quantity
      * @return $this
      * @throws \Throwable|\LogicException
      */

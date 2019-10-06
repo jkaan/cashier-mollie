@@ -2,6 +2,8 @@
 
 namespace Fitblocks\Cashier\FirstPayment\Actions;
 
+use App\Box;
+use App\PaymentCalculator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
@@ -37,15 +39,19 @@ class StartSubscription extends BaseAction
     /** @var CouponRepository */
     protected $couponRepository;
 
+    /** @var Box */
+    private $box;
+
     /**
      * Create a new subscription builder instance.
      *
      * @param \Illuminate\Database\Eloquent\Model $owner
      * @param string $name
      * @param string $plan
-     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
+     * @param Box $box
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(Model $owner, string $name, string $plan)
+    public function __construct(Model $owner, string $name, string $plan, Box $box)
     {
         $this->owner = $owner;
         $this->taxPercentage = $this->owner->taxPercentage();
@@ -58,6 +64,19 @@ class StartSubscription extends BaseAction
         $this->currency = $this->subtotal->getCurrency()->getCode();
 
         $this->couponRepository = app()->make(CouponRepository::class);
+        $this->box = $box;
+
+        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPay($this->plan->amount());
+
+        $this->nextPaymentAt = Carbon::now()->add(1, 'month')->startOfMonth();
+        $this->builder = new MandatedSubscriptionBuilder(
+            $this->owner,
+            $this->name,
+            $this->plan->name(),
+            $this->box
+        );
+
+        $this->builder->nextPaymentAt($this->nextPaymentAt);
     }
 
     /**
@@ -68,7 +87,7 @@ class StartSubscription extends BaseAction
      */
     public static function createFromPayload(array $payload, Model $owner)
     {
-        $action = new static($owner, $payload['name'], $payload['plan']);
+        $action = new static($owner, $payload['name'], $payload['plan'], Box::find($payload['box_id']));
 
         // Already validated when preparing the first payment, so don't validate again
         $action->builder()->skipCouponValidation();
@@ -76,19 +95,19 @@ class StartSubscription extends BaseAction
         // The coupon will be handled manually by this action
         $action->builder()->skipCouponHandling();
 
-        if(isset($payload['taxPercentage'])) {
+        if (isset($payload['taxPercentage'])) {
             $action->withTaxPercentage($payload['taxPercentage']);
         }
 
-        if(isset($payload['trialUntil'])) {
+        if (isset($payload['trialUntil'])) {
             $action->trialUntil(Carbon::parse($payload['trialUntil']));
         }
 
-        if(isset($payload['trialDays'])) {
+        if (isset($payload['trialDays'])) {
             $action->trialDays($payload['trialDays']);
         }
 
-        if(isset($payload['coupon'])) {
+        if (isset($payload['coupon'])) {
             $action->withCoupon($payload['coupon']);
         }
 
@@ -107,12 +126,13 @@ class StartSubscription extends BaseAction
             'taxPercentage' => $this->getTaxPercentage(),
             'plan' => $this->plan->name(),
             'name' => $this->name,
-            'trialExpires' => ! empty($this->trialExpires) ? $this->trialExpires->toIso8601String() : null,
-            'quantity' => ! empty($this->quantity) ? $this->quantity : null,
-            'nextPaymentAt' => ! empty($this->nextPaymentAt) ? $this->nextPaymentAt->toIso8601String() : null,
+            'box_id' => $this->box->id,
+            'trialExpires' => !empty($this->trialExpires) ? $this->trialExpires->toIso8601String() : null,
+            'quantity' => !empty($this->quantity) ? $this->quantity : null,
+            'nextPaymentAt' => !empty($this->nextPaymentAt) ? $this->nextPaymentAt->toIso8601String() : null,
             'trialDays' => $this->trialDays,
-            'trialUntil' => ! empty($this->trialUntil) ? $this->trialUntil->toIso8601String(): null,
-            'coupon' => ! empty($this->coupon) ? $this->coupon->name() : null,
+            'trialUntil' => !empty($this->trialUntil) ? $this->trialUntil->toIso8601String() : null,
+            'coupon' => !empty($this->coupon) ? $this->coupon->name() : null,
         ]);
     }
 
@@ -140,6 +160,7 @@ class StartSubscription extends BaseAction
             'unit_price' => $this->getSubtotal()->getAmount(),
             'tax_percentage' => $this->getTaxPercentage(),
             'quantity' => $this->quantity,
+            'box_id' => $this->box->id,
         ];
     }
 
@@ -153,7 +174,7 @@ class StartSubscription extends BaseAction
      */
     public function execute()
     {
-        if(empty($this->nextPaymentAt) && !$this->isTrial()) {
+        if (empty($this->nextPaymentAt) && !$this->isTrial()) {
             $this->builder()->nextPaymentAt(Carbon::parse($this->plan->interval()));
         }
 
@@ -166,11 +187,11 @@ class StartSubscription extends BaseAction
             ->create($this->processedOrderItemData())
             ->toCollection();
 
-        if($this->coupon) {
+        if ($this->coupon) {
             $redeemedCoupon = RedeemedCoupon::record($this->coupon, $subscription);
 
-            if(!$this->isTrial()) {
-                $processedItems =  $this->coupon->applyTo($redeemedCoupon, $processedItems);
+            if (!$this->isTrial()) {
+                $processedItems = $this->coupon->applyTo($redeemedCoupon, $processedItems);
             }
         }
 
@@ -182,7 +203,7 @@ class StartSubscription extends BaseAction
     /**
      * Specify the number of days of the trial.
      *
-     * @param  int $trialDays
+     * @param int $trialDays
      * @return $this
      * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
      * @throws \Throwable
@@ -199,7 +220,7 @@ class StartSubscription extends BaseAction
     /**
      * Specify the ending date of the trial.
      *
-     * @param  Carbon $trialUntil
+     * @param Carbon $trialUntil
      * @return $this
      * @throws \Throwable|\Fitblocks\Cashier\Exceptions\PlanNotFoundException
      */
@@ -269,7 +290,7 @@ class StartSubscription extends BaseAction
      */
     protected function isTrial()
     {
-        return ! ( empty($this->trialDays) && empty($this->trialUntil) );
+        return !(empty($this->trialDays) && empty($this->trialUntil));
     }
 
     /**
@@ -280,11 +301,12 @@ class StartSubscription extends BaseAction
      */
     public function builder()
     {
-        if($this->builder === null) {
+        if ($this->builder === null) {
             $this->builder = new MandatedSubscriptionBuilder(
                 $this->owner,
                 $this->name,
-                $this->plan->name()
+                $this->plan->name(),
+                $this->box
             );
         }
 

@@ -2,6 +2,7 @@
 
 namespace Fitblocks\Cashier\SubscriptionBuilder;
 
+use App\Box;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +66,8 @@ class MandatedSubscriptionBuilder implements Contract
 
     /** @var bool */
     protected $validateCoupon = true;
+    /** @var Box */
+    private $box;
 
     /**
      * Create a new subscription builder instance.
@@ -72,21 +75,22 @@ class MandatedSubscriptionBuilder implements Contract
      * @param mixed $owner
      * @param string $name
      * @param string $plan
-     * @throws \Fitblocks\Cashier\Exceptions\PlanNotFoundException
+     * @param Box $box
      */
-    public function __construct(Model $owner, string $name, string $plan)
+    public function __construct(Model $owner, string $name, string $plan, Box $box)
     {
         $this->name = $name;
         $this->owner = $owner;
         $this->nextPaymentAt = Carbon::now();
         $this->plan = app(PlanRepository::class)::findOrFail($plan);
+        $this->box = $box;
     }
 
     /**
      * Create a new Cashier subscription.
      *
      * @return Subscription
-     * \Fitblocks\Cashier\Exceptions\CouponException
+     * @throws \Fitblocks\Cashier\Exceptions\CouponException
      */
     public function create()
     {
@@ -96,11 +100,11 @@ class MandatedSubscriptionBuilder implements Contract
             $subscription = $this->makeSubscription($now);
             $subscription->save();
 
-            if($this->coupon) {
-                if($this->validateCoupon) {
-                    $this->coupon->validateFor($subscription);
+            if ($this->coupon) {
+                if ($this->validateCoupon) {
+                    $this->coupon->validatbeFor($subscription);
 
-                    if($this->handleCoupon) {
+                    if ($this->handleCoupon) {
                         $this->coupon->redeemFor($subscription);
                     }
                 }
@@ -108,7 +112,7 @@ class MandatedSubscriptionBuilder implements Contract
 
             $subscription->scheduleNewOrderItemAt($this->nextPaymentAt);
             $subscription->save();
-            
+
             $this->owner->cancelGenericTrial();
 
             return $subscription;
@@ -123,7 +127,7 @@ class MandatedSubscriptionBuilder implements Contract
      */
     public function makeSubscription($now = null)
     {
-        return $this->owner->subscriptions()->make([
+        return $this->owner->subscriptionsFitblocks()->make([
             'name' => $this->name,
             'plan' => $this->plan->name(),
             'quantity' => $this->quantity,
@@ -131,13 +135,14 @@ class MandatedSubscriptionBuilder implements Contract
             'trial_ends_at' => $this->trialExpires,
             'cycle_started_at' => $now ?: now(),
             'cycle_ends_at' => $this->nextPaymentAt,
+            'box_id' => $this->box->id,
         ]);
     }
 
     /**
      * Specify the number of days of the trial.
      *
-     * @param  int  $trialDays
+     * @param int $trialDays
      * @return $this
      */
     public function trialDays(int $trialDays)
@@ -148,7 +153,7 @@ class MandatedSubscriptionBuilder implements Contract
     /**
      * Specify the ending date of the trial.
      *
-     * @param  Carbon  $trialUntil
+     * @param Carbon $trialUntil
      * @return $this
      */
     public function trialUntil(Carbon $trialUntil)
@@ -162,7 +167,7 @@ class MandatedSubscriptionBuilder implements Contract
     /**
      * Specify the quantity of the subscription.
      *
-     * @param  int  $quantity
+     * @param int $quantity
      * @return $this
      */
     public function quantity(int $quantity)

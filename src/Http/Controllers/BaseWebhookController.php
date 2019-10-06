@@ -2,6 +2,8 @@
 
 namespace Fitblocks\Cashier\Http\Controllers;
 
+use App\MollieWrapper;
+use App\Repository\BoxRepositoryInterface;
 use Mollie\Api\Exceptions\ApiException;
 
 abstract class BaseWebhookController
@@ -17,7 +19,7 @@ abstract class BaseWebhookController
     public function getPaymentById($id)
     {
         try {
-            return mollie()->payments()->get($id);
+            return (new MollieWrapper(app(BoxRepositoryInterface::class)))->getPayment($id);
         } catch (ApiException $e) {
             if(! config('app.debug')) {
                 // Prevent leaking information

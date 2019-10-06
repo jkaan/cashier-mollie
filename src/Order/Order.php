@@ -46,7 +46,7 @@ class Order extends Model
      */
     public function getBalanceAfterAttribute()
     {
-        return (int) $this->getBalanceBefore()->subtract($this->getCreditUsed())->getAmount();
+        return (int)$this->getBalanceBefore()->subtract($this->getCreditUsed())->getAmount();
     }
 
     /**
@@ -60,20 +60,21 @@ class Order extends Model
     public static function createFromItems(OrderItemCollection $items, $overrides = [], $process_items = true)
     {
         return DB::transaction(function () use ($items, $overrides, $process_items) {
-            if($process_items) {
+            if ($process_items) {
                 $items = $items->preprocess();
             }
 
-            if($items->currencies()->count() > 1) {
+            if ($items->currencies()->count() > 1) {
                 throw new LogicException('Creating an order requires items to have a single currency.');
             }
 
-            if($items->owners()->count() > 1) {
+            if ($items->owners()->count() > 1) {
                 throw new LogicException('Creating an order requires items to have a single owner.');
             }
 
             $currency = $items->first()->currency;
             $owner = $items->first()->owner;
+            $boxId = $items->first()->box_id;
 
             $total = $items->sum('total');
 
@@ -86,12 +87,13 @@ class Order extends Model
                 'tax' => $items->sum('tax'),
                 'total' => $total,
                 'total_due' => $total,
+                'box_id' => $boxId,
             ], $overrides));
 
             $items->each(function (OrderItem $item) use ($order, $process_items) {
                 $item->update(['order_id' => $order->id]);
 
-                if($process_items) {
+                if ($process_items) {
                     $item->process();
                 }
             });
@@ -137,31 +139,34 @@ class Order extends Model
     /**
      * Processes the Order into Credit, Refund or Mollie Payment - whichever is appropriate.
      *
+     * @param string|null $webhookUrl
+     * @param bool $useMollieWrapper
      * @return $this
-     * @throws \Fitblocks\Cashier\Exceptions\InvalidMandateException
+     * @throws InvalidMandateException
+     * @throws \Throwable
      */
-    public function processPayment()
+    public function processPayment(?string $webhookUrl, bool $useMollieWrapper)
     {
         $mandate = $this->owner->mollieMandate();
         $this->guardMandate($mandate);
         $minimumPaymentAmount = app(MinimumPayment::class)::forMollieMandate($mandate, $this->getCurrency());
 
-        DB::transaction(function () use ($minimumPaymentAmount) {
+        DB::transaction(function () use ($minimumPaymentAmount, $webhookUrl, $useMollieWrapper) {
             $owner = $this->owner;
 
             // Process user balance, if any
-            if($owner->hasCredit($this->currency)) {
+            if ($owner->hasCredit($this->currency)) {
                 $total = $this->getTotal();
                 $this->balance_before = $owner->credit($this->currency)->value;
 
                 $creditUsed = $owner->maxOutCredit($total);
-                $this->credit_used = (int) $creditUsed->getAmount();
+                $this->credit_used = (int)$creditUsed->getAmount();
                 $this->total_due = $total->subtract($creditUsed)->getAmount();
             }
 
             $totalDue = money($this->total_due, $this->currency);
 
-            switch(true) {
+            switch (true) {
                 case $totalDue->isZero():
                     break; // No payment processing required
 
@@ -170,20 +175,31 @@ class Order extends Model
                     // Add credit to the owner's balance
                     $credit = Credit::addAmountForOwner($owner, money(-($this->total_due), $this->currency));
 
-                    if (! $owner->hasActiveSubscriptionWithCurrency($this->currency)) {
+                    if (!$owner->hasActiveSubscriptionWithCurrency($this->currency)) {
                         Event::dispatch(new BalanceTurnedStale($credit));
                     }
                     break;
 
                 case $totalDue->greaterThanOrEqual($minimumPaymentAmount):
 
-                    // Create Mollie payment
-                    $payment = (new MandatedPaymentBuilder(
+                    $builder = (new MandatedPaymentBuilder(
                         $owner,
                         "Order " . $this->number,
                         $totalDue,
                         url(config('cashier.webhook_url'))
-                    ))->create();
+                    ));
+
+                    if ($webhookUrl !== null) {
+                        $builder->setWebhookUrl($webhookUrl);
+                    }
+
+                    if ($useMollieWrapper) {
+                        $builder->useMollieWrapper();
+
+                    }
+
+                    // Create Mollie payment
+                    $payment = $builder->create();
 
                     $this->mollie_payment_id = $payment->id;
                     $this->mollie_payment_status = 'open';
@@ -215,7 +231,7 @@ class Order extends Model
     /**
      * Create a new Eloquent Collection instance.
      *
-     * @param  array  $models
+     * @param array $models
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function newCollection(array $models = [])
@@ -233,10 +249,10 @@ class Order extends Model
     public function invoice($id = null, $date = null)
     {
         $invoice = (new Invoice(
-                $this->currency,
-                $id ?: $this->number,
-                $date ?: $this->created_at
-            ))->addItems($this->items)
+            $this->currency,
+            $id ?: $this->number,
+            $date ?: $this->created_at
+        ))->addItems($this->items)
             ->setStartingBalance($this->getBalanceBefore())
             ->setCompletedBalance($this->getBalanceAfter())
             ->setUsedBalance($this->getCreditUsed());
@@ -246,9 +262,9 @@ class Order extends Model
         $extra_information = null;
         $owner = $this->owner;
 
-        if(method_exists($owner, 'getExtraBillingInformation')) {
+        if (method_exists($owner, 'getExtraBillingInformation')) {
             $extra_information = $owner->getExtraBillingInformation();
-            if($extra_information) {
+            if ($extra_information) {
                 $invoice->setExtraInformation([$extra_information]);
             }
         }
@@ -275,7 +291,7 @@ class Order extends Model
      */
     public function scopeProcessed($query, $processed = true)
     {
-        if($processed) {
+        if ($processed) {
             return $query->whereNotNull('processed_at');
         }
 
@@ -291,7 +307,7 @@ class Order extends Model
      */
     public function scopeUnprocessed($query, $unprocessed = true)
     {
-        return $query->processed(! $unprocessed);
+        return $query->processed(!$unprocessed);
     }
 
     /**
@@ -311,7 +327,8 @@ class Order extends Model
      *
      * @return bool
      */
-    public function creditApplied() {
+    public function creditApplied()
+    {
         return $this->credit_used <> 0;
     }
 
@@ -325,7 +342,7 @@ class Order extends Model
     public function handlePaymentFailed()
     {
         return DB::transaction(function () {
-            if($this->creditApplied()) {
+            if ($this->creditApplied()) {
                 $this->owner->addCredit($this->getCreditUsed());
             }
 
@@ -421,8 +438,8 @@ class Order extends Model
      */
     protected function guardMandate(?Mandate $mandate)
     {
-        if(empty($mandate) || ! $mandate->isValid()) {
-            throw new InvalidMandateException('Cannot process payment without valid mandate for order id '.$this->id);
+        if (empty($mandate) || !$mandate->isValid()) {
+            throw new InvalidMandateException('Cannot process payment without valid mandate for order id ' . $this->id);
         }
     }
 

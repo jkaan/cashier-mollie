@@ -2,6 +2,9 @@
 
 namespace Fitblocks\Cashier\FirstPayment;
 
+use App\Box;
+use App\MollieWrapper;
+use App\Repository\BoxRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Fitblocks\Cashier\Cashier;
 use Fitblocks\Cashier\FirstPayment\Actions\ActionCollection;
@@ -53,20 +56,24 @@ class FirstPaymentBuilder
      * @var \Mollie\Api\Resources\Payment|null
      */
     protected $molliePayment;
+    /** @var Box */
+    private $box;
 
     /**
      * FirstPaymentBuilder constructor.
      *
      * @param \Illuminate\Database\Eloquent\Model $owner
      * @param array $options Overrides the Mollie Payment payload
+     * @param Box $box
      */
-    public function __construct(Model $owner, array $options = [])
+    public function __construct(Model $owner, array $options = [], Box $box)
     {
         $this->owner = $owner;
         $this->actions = new ActionCollection;
         $this->options = $options;
         $this->description = config('app.name', 'First payment');
         $this->redirectUrl = url(config('cashier.first_payment.redirect_url', config('cashier.redirect_url')));
+        $this->box = $box;
     }
 
     /**
@@ -96,7 +103,7 @@ class FirstPaymentBuilder
             'locale' => Cashier::getLocale($this->owner),
             'description' => $this->description,
             'amount' => money_to_mollie_array($this->actions->total()),
-            'webhookUrl' => url(config('cashier.first_payment.webhook_url')),
+            'webhookUrl' => url(config('services.mollie.webhook_url') . '/' . $this->box->slug . '/webhooks/mollie/first-payment'),
             'redirectUrl' => $this->redirectUrl,
             'metadata' => [
                 'owner' => [
@@ -113,7 +120,7 @@ class FirstPaymentBuilder
      */
     public function create()
     {
-        $this->molliePayment = mollie()->payments()->create($this->getMolliePayload());
+        $this->molliePayment = (new MollieWrapper(app(BoxRepositoryInterface::class)))->createPayment($this->getMolliePayload());
 
         return $this->molliePayment;
     }
