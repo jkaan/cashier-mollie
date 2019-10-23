@@ -28,7 +28,7 @@ class ConfigCouponRepositoryTest extends BaseTestCase
             'test-coupon' => [
                 'handler' => \Fitblocks\Cashier\Coupon\FixedDiscountHandler::class,
                 'context' => [
-                    'description' => 'Welcome to '.config('app.name'),
+                    'description' => 'Welcome to ' . config('app.name'),
                     'discount' => [
                         'currency' => 'EUR',
                         'value' => '5.00',
@@ -79,6 +79,14 @@ class ConfigCouponRepositoryTest extends BaseTestCase
         $this->assertInstanceOf(Coupon::class, $lowercaseCoupon);
         $this->assertInstanceOf(Coupon::class, $uppercaseCoupon);
         $this->assertEquals($lowercaseCoupon, $uppercaseCoupon);
+    }
+
+    /** @test */
+    public function itHandlesTimesAttribute()
+    {
+        $coupon = $this->repository->findOrFail('test-coupon');
+
+        $this->assertEquals(6, $coupon->times());
     }
 
 }
