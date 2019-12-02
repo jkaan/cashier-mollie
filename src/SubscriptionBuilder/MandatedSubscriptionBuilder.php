@@ -3,7 +3,9 @@
 namespace Fitblocks\Cashier\SubscriptionBuilder;
 
 use App\Box;
+use App\PaymentCalculator;
 use Carbon\Carbon;
+use Fitblocks\Cashier\Plan\Plan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Fitblocks\Cashier\Coupon\Contracts\CouponRepository;
@@ -105,12 +107,17 @@ class MandatedSubscriptionBuilder implements Contract
 
             if ($this->coupon) {
                 if ($this->validateCoupon) {
-                    $this->coupon->validatbeFor($subscription);
+                    $this->coupon->validateFor($subscription);
 
                     if ($this->handleCoupon) {
                         $this->coupon->redeemFor($subscription);
                     }
                 }
+            }
+
+            // Check if the start date is in the future and is not the first of the month
+            if (Carbon::now()->monthsUntil($this->startDate)->count() >= 1 && $this->startDate->day !== 1) {
+                $this->scheduleNewOrderItem($subscription, $this->startDate);
             }
 
             $subscription->scheduleNewOrderItemAt($this->nextPaymentAt);
@@ -120,6 +127,26 @@ class MandatedSubscriptionBuilder implements Contract
 
             return $subscription;
         });
+    }
+
+    private function scheduleNewOrderItem(Subscription $subscription, Carbon $processAt)
+    {
+        $subscription->orderItems()->create([
+            'owner_id' => $subscription->owner_id,
+            'owner_type' => $subscription->owner_type,
+            'process_at' => $processAt,
+            'currency' => $subscription->plan()->amount()->getCurrency()->getCode(),
+            'unit_price' => (int)(new PaymentCalculator())
+                ->calculateMoneyAmountToPayFromDayWithStartDate(
+                    $subscription->plan()->amount(),
+                    $processAt,
+                    (clone $processAt)->startOfMonth()
+                )->getAmount(),
+            'quantity' => $subscription->quantity ?: 1,
+            'tax_percentage' => $subscription->tax_percentage,
+            'description' => $subscription->plan()->description(),
+            'box_id' => $subscription->box_id,
+        ]);
     }
 
     /**

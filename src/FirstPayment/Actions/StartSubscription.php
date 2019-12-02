@@ -69,9 +69,11 @@ class StartSubscription extends BaseAction
         $this->couponRepository = app()->make(CouponRepository::class);
         $this->box = $box;
 
-        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPayFromDay($this->plan->amount(), $startDate);
+        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPayFromDay($this->plan->amount(),
+            $startDate);
+        $this->startDate = $startDate;
 
-        $this->nextPaymentAt = Carbon::parse($this->plan->interval())->startOfMonth();
+        $this->nextPaymentAt = (clone $this->startDate)->modify('+ ' . $this->plan->interval())->startOfMonth();
         $this->builder = new MandatedSubscriptionBuilder(
             $this->owner,
             $this->name,
@@ -81,7 +83,6 @@ class StartSubscription extends BaseAction
         );
 
         $this->builder->nextPaymentAt($this->nextPaymentAt);
-        $this->startDate = $startDate;
     }
 
     /**
@@ -92,7 +93,8 @@ class StartSubscription extends BaseAction
      */
     public static function createFromPayload(array $payload, Model $owner)
     {
-        $action = new static($owner, $payload['name'], $payload['plan'], Box::find($payload['box_id']), Carbon::parse($payload['startDate']));
+        $action = new static($owner, $payload['name'], $payload['plan'], Box::find($payload['box_id']),
+            Carbon::parse($payload['startDate']));
 
         // Already validated when preparing the first payment, so don't validate again
         $action->builder()->skipCouponValidation();
