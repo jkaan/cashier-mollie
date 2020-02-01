@@ -2,9 +2,9 @@
 
 namespace Fitblocks\Cashier;
 
+use App\Repository\BoxRepositoryInterface;
 use Fitblocks\Cashier\Order\Contracts\MinimumPayment as MinimumPaymentContract;
 use Mollie\Api\Resources\Mandate;
-use Money\Money;
 
 class MinimumPayment implements MinimumPaymentContract
 {
@@ -15,9 +15,12 @@ class MinimumPayment implements MinimumPaymentContract
      */
     public static function forMollieMandate(Mandate $mandate, $currency)
     {
+        $boxRepo = app(BoxRepositoryInterface::class);
+        $profileId = $boxRepo->getActiveBox()->mollie_profile_id;
+        
         return mollie_object_to_money(
             mollie()
-                ->methods()->get($mandate->method, ['currency' => $currency])
+                ->methods()->get($mandate->method, ['currency' => $currency, 'profileId' => $profileId])
                 ->minimumAmount
         );
     }
