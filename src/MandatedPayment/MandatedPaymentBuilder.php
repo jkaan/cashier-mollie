@@ -36,8 +36,6 @@ class MandatedPaymentBuilder
      */
     protected $overrides;
 
-    private $useMollieWrapper;
-
     /**
      * MandatedPaymentBuilder constructor.
      *
@@ -53,24 +51,17 @@ class MandatedPaymentBuilder
         Money $amount,
         string $webhookUrl,
         array $overrides = []
-    )
-    {
+    ) {
         $this->owner = $owner;
         $this->description = $description;
         $this->amount = $amount;
         $this->webhookUrl = $webhookUrl;
         $this->overrides = $overrides;
-        $this->useMollieWrapper = false;
     }
 
     public function setWebhookUrl(string $webhookUrl)
     {
         $this->webhookUrl = $webhookUrl;
-    }
-
-    public function useMollieWrapper()
-    {
-        $this->useMollieWrapper = true;
     }
 
     /**
@@ -98,10 +89,6 @@ class MandatedPaymentBuilder
      */
     public function create(array $overrides = [])
     {
-        if ($this->useMollieWrapper) {
-            return (new MollieWrapper(app(BoxRepositoryInterface::class)))->createPayment($this->getPayload($overrides));
-        } else {
-            return mollie()->payments()->create($this->getPayload($overrides));
-        }
+        return (new MollieWrapper(app(BoxRepositoryInterface::class)))->createPayment($this->getPayload($overrides));
     }
 }

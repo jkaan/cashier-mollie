@@ -2,6 +2,8 @@
 
 namespace Fitblocks\Cashier\Order;
 
+use App\MollieWrapper;
+use App\Repository\BoxRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
@@ -145,13 +147,14 @@ class Order extends Model
      * @throws InvalidMandateException
      * @throws \Throwable
      */
-    public function processPayment(?string $webhookUrl, bool $useMollieWrapper)
+    public function processPayment(?string $webhookUrl)
     {
-        $mandate = $this->owner->mollieMandate();
+        $mollieWrapper = (new MollieWrapper(app(BoxRepositoryInterface::class)));
+        $mandate = $mollieWrapper->getMandateForCustomer($this->owner->mollie_customer_id, $this->owner->mollie_mandate_id);
         $this->guardMandate($mandate);
         $minimumPaymentAmount = app(MinimumPayment::class)::forMollieMandate($mandate, $this->getCurrency());
 
-        DB::transaction(function () use ($minimumPaymentAmount, $webhookUrl, $useMollieWrapper) {
+        DB::transaction(function () use ($minimumPaymentAmount, $webhookUrl) {
             $owner = $this->owner;
 
             // Process user balance, if any
@@ -191,11 +194,6 @@ class Order extends Model
 
                     if ($webhookUrl !== null) {
                         $builder->setWebhookUrl($webhookUrl);
-                    }
-
-                    if ($useMollieWrapper) {
-                        $builder->useMollieWrapper();
-
                     }
 
                     // Create Mollie payment
