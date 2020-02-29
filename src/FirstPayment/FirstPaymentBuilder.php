@@ -99,7 +99,7 @@ class FirstPaymentBuilder
         return array_filter(array_merge([
             'sequenceType' => SequenceType::SEQUENCETYPE_FIRST,
             'method' => $this->method,
-            'customerId' => $this->owner->asMollieCustomer()->id,
+            'customerId' => $this->owner->mollie_customer_id,
             'locale' => Cashier::getLocale($this->owner),
             'description' => $this->description,
             'amount' => money_to_mollie_array($this->actions->total()),
