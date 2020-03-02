@@ -12,6 +12,7 @@ use Fitblocks\Cashier\Order\OrderItem;
 use Fitblocks\Cashier\Order\OrderItemCollection;
 use Fitblocks\Cashier\Plan\Contracts\PlanRepository;
 use Fitblocks\Cashier\SubscriptionBuilder\MandatedSubscriptionBuilder;
+use Money\Money;
 
 class StartSubscription extends BaseAction
 {
@@ -69,8 +70,13 @@ class StartSubscription extends BaseAction
         $this->couponRepository = app()->make(CouponRepository::class);
         $this->box = $box;
 
-        $this->subtotal = (new PaymentCalculator())->calculateMoneyAmountToPayFromDay($this->plan->amount(),
-            $startDate);
+        if ($owner->in_transition) {
+            $this->subtotal = Money::EUR(1);
+        } else {
+            $this->subtotal = (new PaymentCalculator())
+                ->calculateMoneyAmountToPayFromDay($this->plan->amount(), $startDate);
+        }
+        
         $this->startDate = $startDate;
 
         $this->nextPaymentAt = (clone $this->startDate)->modify('+ ' . $this->plan->interval())->startOfMonth();
