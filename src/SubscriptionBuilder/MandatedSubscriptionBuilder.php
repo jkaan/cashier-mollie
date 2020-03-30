@@ -117,10 +117,15 @@ class MandatedSubscriptionBuilder implements Contract
 
             // Check if the start date is in the future and is not the first of the month
             if (Carbon::now()->monthsUntil($this->startDate)->count() >= 1 && $this->startDate->day !== 1) {
-                $this->scheduleNewOrderItem($subscription, $this->startDate);
+                $item = $this->scheduleNewOrderItem($subscription, $this->startDate);
+
+                $subscription->fill([
+                    'scheduled_order_item_id' => $item->id,
+                ]);
+            } else {
+                $subscription->scheduleNewOrderItemAt($this->nextPaymentAt);
             }
 
-            $subscription->scheduleNewOrderItemAt($this->nextPaymentAt);
             $subscription->save();
 
             $this->owner->cancelGenericTrial();
@@ -131,7 +136,7 @@ class MandatedSubscriptionBuilder implements Contract
 
     private function scheduleNewOrderItem(Subscription $subscription, Carbon $processAt)
     {
-        $subscription->orderItems()->create([
+        return $subscription->orderItems()->create([
             'owner_id' => $subscription->owner_id,
             'owner_type' => $subscription->owner_type,
             'process_at' => $processAt,
