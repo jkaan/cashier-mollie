@@ -76,10 +76,22 @@ class StartSubscription extends BaseAction
             $this->subtotal = (new PaymentCalculator())
                 ->calculateMoneyAmountToPayFromDay($this->plan->amount(), $startDate);
         }
-        
+
         $this->startDate = $startDate;
 
-        $this->nextPaymentAt = (clone $this->startDate)->modify('+ ' . $this->plan->interval())->startOfMonth();
+
+        if (Carbon::now()->isSameYear($startDate)
+            && !Carbon::now()->isSameMonth($startDate)
+            && $startDate->isAfter(Carbon::now())) {
+            $this->nextPaymentAt = $startDate;
+        } else {
+            if ($this->plan->interval() === '1 month') {
+                $this->nextPaymentAt = (clone $startDate)->addMonthWithoutOverflow()->startOfMonth();
+            } elseif ($this->plan->interval() === '1 year') {
+                $this->nextPaymentAt = (clone $startDate)->addYearWithoutOverflow()->startOfMonth();
+            }
+        }
+
         $this->builder = new MandatedSubscriptionBuilder(
             $this->owner,
             $this->name,
