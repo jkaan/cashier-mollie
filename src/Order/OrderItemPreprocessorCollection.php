@@ -29,12 +29,11 @@ class OrderItemPreprocessorCollection extends Collection
     }
 
     /**
-     * @param \Fitblocks\Cashier\Order\OrderItem $item
      * @return \Fitblocks\Cashier\Order\OrderItemCollection
      */
-    public function handle(OrderItem $item)
+    public function handle($item)
     {
-        $items = $this->reduce(function($carry, Preprocessor $preprocessor) {
+        $items = $this->reduce(function($carry, $preprocessor) {
             return $preprocessor->handle($carry);
         }, $item->toCollection());
 
