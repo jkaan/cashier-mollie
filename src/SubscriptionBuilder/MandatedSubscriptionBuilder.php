@@ -115,8 +115,10 @@ class MandatedSubscriptionBuilder implements Contract
                 }
             }
 
-            // Check if the start date is in the future and is not the first of the month
-            if (Carbon::now()->monthsUntil($this->startDate)->count() >= 1 && $this->startDate->day !== 1) {
+            // Check if the start date is after this month and if the day is not the first one.
+            // If that is true, we have to calculate the amount to pay ourselves.
+            // Otherwise just use the plan amount, which is what scheduleNewOrderItemAt does.
+            if ($this->startDate->day !== 1 && !$this->startDate->isCurrentMonth() && $this->startDate->isAfter(now())) {
                 $item = $this->scheduleNewOrderItem($subscription, $this->startDate);
 
                 $subscription->fill([
